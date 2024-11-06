@@ -11,8 +11,12 @@ public class ApiController {
 	TestManager testManager;
 
 	@GetMapping("/api/test/track/send")
-	public void sendTrackByPolyline(@RequestParam String mean, @RequestParam String date) throws Exception {
-		testManager.sendTrackByPolyline(mean, date);
+	public void sendTrack(@RequestParam String mean, 
+			@RequestParam String date,
+			@RequestParam(required = false) String territory,
+			@RequestParam(required = false) boolean assignSurvey,
+			@RequestParam(required = false) boolean invitePlayer) throws Exception {
+		testManager.sendTrack(mean, territory, date, assignSurvey, invitePlayer);
 	}
 	
 	@GetMapping("/api/test/track/multimodal")

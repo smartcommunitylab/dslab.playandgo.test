@@ -35,15 +35,15 @@ public class TemplateManager {
     	return getContent("challenge-invite.txt", variables);
     }
 
-    public String getTrack(String mean, Integer tripId, Integer multimodalId, List<Long> timestamps, String city) {
+    public String getTrack(String mean, String tripId, String multimodalId, List<Long> timestamps, String territory) {
     	Map<String, Object> variables = new HashMap<>();
     	variables.put("trip", tripId);
     	variables.put("multimodal", multimodalId);
     	variables.put("tracks", timestamps);
-		variables.put("city", city);
+		variables.put("city", territory);
 
-		if(StringUtils.isNotEmpty(city)) {
-			return getContent("send-track-" + mean + "-" + city + ".txt", variables);
+		if(StringUtils.isNotEmpty(territory)) {
+			return getContent("send-track-" + mean + "-" + territory + ".txt", variables);
 		}
 		else {
 			return getContent("send-track-" + mean + ".txt", variables);

@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import com.google.maps.model.EncodedPolyline;
@@ -55,85 +53,48 @@ public class TestManager {
 
 
     @SuppressWarnings("unused")
-	public void sendTracks(String mean, String city) throws Exception {
+	public void sendTrack(String mean, String territory, String date, boolean assignSurvey, boolean invitePlayer) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Date startDate = sdf.parse(startWeek);
 		Date endDate = sdf.parse(endWeek);
 		Date trackDate = sdf.parse(trackDay);
 		
-		String assignSurvey = templateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
-		//playAndGoEngine.assignSurvey(playerId, campaignId, assignSurvey);
-		Thread.sleep(1000);
-
-		String challengeInvite = templateManager.getChallengeInvite(playerToInvite);
-		//playAndGoEngine.challengeInvite(campaignId, challengeInvite);
-		Thread.sleep(1000);
-		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(trackDate);
-		calendar.set(Calendar.HOUR_OF_DAY, 8);
-		calendar.set(Calendar.MINUTE, 00);
-		int tracks = 1;
-		int tripId = 81;
-		int multimodalId = 1113;
-		for(int i = 0; i < tracks; i++) {
-			List<Long> timestamps = new ArrayList<>();
-			for(int j=0; j<6; j++) {
-				if(mean.equals("walk")) {
-					calendar.add(Calendar.MINUTE, 4);
-				} else if(mean.equals("bike")) {
-					calendar.add(Calendar.MINUTE, 2);
-				} else if(mean.equals("bus")) {
-					calendar.add(Calendar.MINUTE, 2);
-				}
-				timestamps.add(calendar.getTimeInMillis());				
-			}
-
-			String track = templateManager.getTrack(mean, tripId, multimodalId, timestamps, city);
-
-			playAndGoEngine.sendTrack(track);
-			Thread.sleep(1000);	
-			calendar.add(Calendar.MINUTE, 30);
-			tripId++;
+		if(assignSurvey) {
+			String assignSurveyJson = templateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
+			playAndGoEngine.assignSurvey(playerId, campaignId, assignSurveyJson);
+			Thread.sleep(1000);
 		}
-	}
-    
-	public void sendTrackByPolyline(String mean, String date) throws Exception {
+		
+		if(invitePlayer) {
+			String challengeInviteJson = templateManager.getChallengeInvite(playerToInvite);
+			playAndGoEngine.challengeInvite(campaignId, challengeInviteJson);
+			Thread.sleep(1000);			
+		}
+		
 		String tripId = mean + "_" + RandomStringUtils.random(12, true, true);
 		String multimodalId = tripId + "_modal";
 		String uuid = RandomStringUtils.random(12, true, true);
-		
-		EncodedPolyline encodedPolyline = null;
-		if(mean.equals("walk")) {
-			encodedPolyline = new EncodedPolyline(walkPolyline);
-		} else if(mean.equals("bike")) {
-			encodedPolyline = new EncodedPolyline(bikePolyline);
-		}
-		
-		List<LatLng> list = encodedPolyline.decodePath();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-		Date trackDate = sdf.parse(date);
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(trackDate);
-		calendar.set(Calendar.HOUR_OF_DAY, 8);
-		calendar.set(Calendar.MINUTE, 00);
 		
-		List<Location> locations = new ArrayList<>();
-		for(LatLng latLng : list) {
+		List<Long> timestamps = new ArrayList<>();
+		for(int j=0; j<6; j++) {
 			if(mean.equals("walk")) {
-				calendar.add(Calendar.MINUTE, 2);
+				calendar.add(Calendar.MINUTE, 4);
 			} else if(mean.equals("bike")) {
-				calendar.add(Calendar.MINUTE, 1);
-			}			
-			Location location = new Location(latLng.lat, latLng.lng, calendar.getTimeInMillis(), tripId);
-			locations.add(location);
+				calendar.add(Calendar.MINUTE, 2);
+			} else if(mean.equals("bus")) {
+				calendar.add(Calendar.MINUTE, 2);
+			}
+			timestamps.add(calendar.getTimeInMillis());				
 		}
-		String track = templateManager.getTrackByPolyline(tripId, multimodalId, uuid, locations);
-		System.out.println(track);
+
+		String track = templateManager.getTrack(mean, tripId, multimodalId, timestamps, territory);
+
 		playAndGoEngine.sendTrack(track);
 	}
-	
+    	
 	public void writeMultimodalTrack(String date) throws Exception {
 		String randomId = RandomStringUtils.random(12, true, true);
 		String multimodalId = randomId + "_modal";

@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+target
 
 # Log file
 *.log
@@ -25,3 +26,11 @@ replay_pid*
 
 #IntelliJ folder
 .idea
+
+#VSCode
+.vscode
+
+#Eclipse
+.classpath
+.project
+.settings
