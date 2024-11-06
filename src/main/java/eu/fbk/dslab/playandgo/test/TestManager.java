@@ -24,9 +24,6 @@ public class TestManager {
 	@Value("${endWeek}")
 	String endWeek;
 	
-	@Value("${trackDay}")
-	String trackDay;
-	
 	@Value("${playerToInvite}")
 	String playerToInvite;
 	
@@ -57,7 +54,7 @@ public class TestManager {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Date startDate = sdf.parse(startWeek);
 		Date endDate = sdf.parse(endWeek);
-		Date trackDate = sdf.parse(trackDay);
+		Date trackDate = sdf.parse(date);
 		
 		if(assignSurvey) {
 			String assignSurveyJson = templateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
