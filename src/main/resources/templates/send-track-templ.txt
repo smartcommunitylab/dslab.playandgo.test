@@ -1,0 +1,44 @@
+{
+	"device": {
+		"available":true,
+		"platform":"Android",
+		"version":"9",
+		"uuid":"[[${uuid}]]",
+		"cordova":"8.1.0",
+		"model":"BND-L21",
+		"manufacturer":"HUAWEI",
+		"isVirtual":false,
+		"serial":"unknown",
+		"appVersion":"v 1.0.1"
+	},
+	"location": [
+	[# th:each="item, itemStat : ${locations}"]
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : [[${item.latitude}]],
+			"longitude" : [[${item.longitude}]],
+			"altitude" : 39.7,
+			"speed" : 2.02,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${item.timestamp}]],
+		"uuid": "[[${uuid}]]",
+		"is_moving": true,
+		"extras": {
+            "start": [[${item.timestamp}]],
+						"idTrip": "[[${item.tripId}]]",
+            "multimodalId": "[[${multimodalId}]]"
+		}
+	}[# th:if="!${itemStat.last}"],[/]
+	[/]
+	]
+}

@@ -1,0 +1,5 @@
+{
+    "attendeeId": "[[${playerId}]]",
+    "challengeModelName": "groupCooperative",
+    "challengePointConcept": "Bike_Km"
+}

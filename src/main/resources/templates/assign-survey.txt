@@ -1,0 +1,8 @@
+{
+    "start":[[${fromDate}]],
+    "end":[[${toDate}]],
+    "data":{"bonusPointType":"green leaves","bonusScore":100.0},
+    "surveyLink":"https://docs.google.com/forms/d/1OZfswFG5MTv5nOqy3bTekk7wIB2x4NaCUAMF9juK4KI/",
+    "surveyName":"surveyTest",
+    "defaultSurvey":false
+}

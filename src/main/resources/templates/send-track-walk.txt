@@ -1,0 +1,146 @@
+{
+	"device": {
+		"available":true,
+		"platform":"Android",
+		"version":"9",
+		"uuid":"d5097e6ae12bbed0",
+		"cordova":"8.1.0",
+		"model":"BND-L21",
+		"manufacturer":"HUAWEI",
+		"isVirtual":false,
+		"serial":"unknown",
+		"appVersion":"v 1.0.1"
+	},
+	"location": [
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : 46.07479,
+			"longitude" : 11.11545,
+			"altitude" : 39.7,
+			"speed" : 2.02,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${tracks.get(0)}]],
+		"uuid": "8e35d43e-80c7-4741-8e4c-871f3f5868df",
+		"is_moving": true,
+		"extras": {
+            "start": [[${tracks.get(0)}]],
+						"idTrip": "walk_[[${trip}]]",
+            "multimodalId": "trip_[[${multimodal}]]"
+		}
+	},
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : 46.07332,
+			"longitude" : 11.11557,
+			"altitude" : 39.7,
+			"speed" : 0.77,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${tracks.get(1)}]],
+		"uuid": "ddc3b0b7-e918-48b6-a92e-6be93fd48004",
+		"is_moving": true,
+		"extras": {
+            "start": [[${tracks.get(1)}]],
+						"idTrip": "walk_[[${trip}]]",
+            "multimodalId": "trip_[[${multimodal}]]"
+		}		
+	},
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : 46.07206,
+			"longitude" : 11.11522,
+			"altitude" : 39.7,
+			"speed" : 2.77,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${tracks.get(2)}]],
+		"uuid": "4a26286d-447c-4c7c-9f9c-7eeec32febde",
+		"is_moving": true,
+		"extras": {
+            "start": [[${tracks.get(2)}]],
+						"idTrip": "walk_[[${trip}]]",
+            "multimodalId": "trip_[[${multimodal}]]"
+		}		
+	},
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : 46.07039,
+			"longitude" : 11.11452,
+			"altitude" : 39.7,
+			"speed" : 1.77,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${tracks.get(3)}]],
+		"uuid": "729f8a32-1bc9-4884-992c-bdce669abf1d",
+		"is_moving": true,
+		"extras": {
+            "start": "[[${tracks.get(3)}]]",
+						"idTrip": "walk_[[${trip}]]",
+            "multimodalId": "trip_[[${multimodal}]]"
+		}		
+	},
+	{
+		"coords" : {
+			"accuracy" : 26,
+			"latitude" : 46.06992,
+			"longitude" : 11.11573,
+			"altitude" : 39.7,
+			"speed" : 1.42,
+			"heading" : 309.58
+		},
+		"activity" : {
+			"confidence": 100,
+			"type": "still"
+		},		
+		"battery" : {
+			"is_charging": false,
+			"level": 0.9
+		},
+		"timestamp": [[${tracks.get(4)}]],
+		"uuid": "5734adf3-7108-43fa-b547-72ebde52080d",
+		"is_moving": true,
+		"extras": {
+            "start": [[${tracks.get(4)}]],
+						"idTrip": "walk_[[${trip}]]",
+            "multimodalId": "trip_[[${multimodal}]]"
+		}				
+	}
+	]
+}
