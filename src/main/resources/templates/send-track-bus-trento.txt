@@ -24,7 +24,7 @@
             },
             "activity" : {
                 "confidence": 100,
-                "type": [[${item.transport.mode}]]
+                "type": [[${mean}]]
             },
             "battery" : {
                 "is_charging": false,
@@ -58,7 +58,7 @@
                 "level": 0.9
             },
             "timestamp": [[${item.departure.time}]],
-            "uuid": "[[${uuid}]]",
+            "uuid": "[[${item.departure.place.id}]]",
             "is_moving": true,
             "extras": {
                 "start": [[${item.departure.time}]],

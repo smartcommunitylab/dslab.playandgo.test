@@ -42,8 +42,12 @@ public class HereAPIService {
         return responseEntity.getBody();
     }
 
-    public String fetchRouteData_AsJson() throws JsonProcessingException {
-        String url = hereApiUrl + "&apiKey=" + hereApiKey;
+    public HereAPIResponse fetchRouteData_AsJson(String mean, String departureTime, String origin, String destination) throws JsonProcessingException {
+        String url = hereApiUrl + "?apiKey=" + hereApiKey
+        		+ "&origin=" + origin + "&destination=" + destination
+        		+ "&departureTime=" + departureTime
+        		+ "&modes=" + getMode(mean)
+        		+ "&return=polyline,intermediate";
 
         System.out.println(url);
 
@@ -55,7 +59,7 @@ public class HereAPIService {
 
         HereAPIResponse hereAPIResponse = objectMapper.readValue(responseEntity.getBody(), HereAPIResponse.class);
 
-        return objectMapper.writeValueAsString(hereAPIResponse);
+        return hereAPIResponse;
     }
 
     public void saveJsonToFile() throws IOException {

@@ -79,7 +79,7 @@ public class HereAPIResponse {
         private String headsign;
         private String shortName;
         private String longName;
-        private String wheelchairAccessible;
+        private String wheelchairAccessible;        
     }
 
     @Data
