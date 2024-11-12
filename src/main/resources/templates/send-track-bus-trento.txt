@@ -1,0 +1,72 @@
+{
+	"device": {
+		"available":true,
+		"platform":"Android",
+		"version":"9",
+		"uuid":"[[${uuid}]]",
+		"cordova":"8.1.0",
+		"model":"BND-L21",
+		"manufacturer":"HUAWEI",
+		"isVirtual":false,
+		"serial":"unknown",
+		"appVersion":"v 1.0.1"
+	},
+	"location": [
+        [# th:each="item, itemStat : ${sections}" th:if="${item.transport.mode} == 'bus'"]
+        {
+            "coords" : {
+                "accuracy" : 26,
+                "latitude" : [[${item.departure.place.location.lat}]],
+                "longitude" : [[${item.departure.place.location.lng}]],
+                "altitude" : 39.7,
+                "speed" : 2.02,
+                "heading" : 309.58
+            },
+            "activity" : {
+                "confidence": 100,
+                "type": [[${item.transport.mode}]]
+            },
+            "battery" : {
+                "is_charging": false,
+                "level": 0.9
+            },
+            "timestamp": [[${item.departure.time}]],
+            "uuid": "[[${uuid}]]",
+            "is_moving": true,
+            "extras": {
+                "start": [[${item.departure.time}]],
+                            "idTrip": "[[${trip}]]",
+                "multimodalId": "[[${multimodal}]]"
+            }
+        }[# th:if="!${itemStat.last}"],[/][/]
+        [# th:each="section, sectionStat : ${sections}"][# th:each="item, itemStat : ${section.intermediateStops}"]
+        {
+            "coords" : {
+                "accuracy" : 26,
+                "latitude" : [[${item.departure.place.location.lat}]],
+                "longitude" : [[${item.departure.place.location.lng}]],
+                "altitude" : 39.7,
+                "speed" : 2.02,
+                "heading" : 309.58
+            },
+            "activity" : {
+                "confidence": 100,
+                "type": "bus"
+            },
+            "battery" : {
+                "is_charging": false,
+                "level": 0.9
+            },
+            "timestamp": [[${item.departure.time}]],
+            "uuid": "[[${uuid}]]",
+            "is_moving": true,
+            "extras": {
+                "start": [[${item.departure.time}]],
+                "idTrip": "[[${trip}]]",
+                "multimodalId": "[[${multimodal}]]"
+            }
+        }[# th:if="!${itemStat.last}"],[/]
+        [/]
+        [/]
+    ]
+}
