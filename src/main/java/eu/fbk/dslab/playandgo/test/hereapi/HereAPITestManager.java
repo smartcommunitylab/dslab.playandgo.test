@@ -72,8 +72,7 @@ public class HereAPITestManager {
         String multimodalId = tripId + "_modal";
         String uuid = RandomStringUtils.random(12, true, true);
 
-
-        String track = hereAPITemplateManager.getApiData(mean, tripId, multimodalId, territory);
+        String track = hereAPITemplateManager.getApiData(mean, date, tripId, multimodalId, territory);
 
         String filePath = outputDir + "/routeDataTemplate.json";
 

@@ -1,0 +1,296 @@
+{
+  "routes": [
+    {
+      "id": "R0",
+      "sections": [
+        {
+          "id": "R0-S0",
+          "type": "pedestrian",
+          "departure": {
+            "time": "2024-10-24T06:04:00+02:00",
+            "place": {
+              "name": null,
+              "type": "place",
+              "location": {
+                "lat": 46.0662,
+                "lng": 11.1542
+              },
+              "wheelchairAccessible": null,
+              "id": null,
+              "code": null
+            }
+          },
+          "arrival": {
+            "time": "2024-10-24T06:05:00+02:00",
+            "place": {
+              "name": "Povo Piazza Manci",
+              "type": "station",
+              "location": {
+                "lat": 46.065939,
+                "lng": 11.154528
+              },
+              "wheelchairAccessible": "no",
+              "id": "45923_898",
+              "code": "25030x"
+            }
+          },
+          "polyline": "BGgk173C4y5oV3DsOrET3DUjDwClDwD",
+          "transport": {
+            "mode": "pedestrian",
+            "name": null,
+            "category": null,
+            "color": null,
+            "textColor": null,
+            "headsign": null,
+            "shortName": null,
+            "longName": null,
+            "wheelchairAccessible": null
+          },
+          "intermediateStops": null,
+          "agency": null
+        },
+        {
+          "id": "R0-S1",
+          "type": "transit",
+          "departure": {
+            "time": "2024-10-24T06:05:00+02:00",
+            "place": {
+              "name": "Povo Piazza Manci",
+              "type": "station",
+              "location": {
+                "lat": 46.065939,
+                "lng": 11.154528
+              },
+              "wheelchairAccessible": "no",
+              "id": "45923_898",
+              "code": "25030x"
+            }
+          },
+          "arrival": {
+            "time": "2024-10-24T06:14:00+02:00",
+            "place": {
+              "name": "Venezia \"Port'aquila\"",
+              "type": "station",
+              "location": {
+                "lat": 46.069863,
+                "lng": 11.12824
+              },
+              "wheelchairAccessible": "no",
+              "id": "45923_93",
+              "code": "21745x"
+            }
+          },
+          "polyline": "BH0ur0ubkin40GrlC7vDvwD32Dv7Fn5I36Gv8Mn5IvoWnnHnG3gE0Pv5L8uBnpVn4Bn4BnuG3S_rJ_nBrpF_7Bz_HgiOn1Fk9M_T0mHnLgZgrCo4Bof4kCnxC_Y_jD3rBnfnG32DgyB__YgyBvpEg2E3rBohP4vE4zHnGogI_nGw_I_kKgZ3hGvM39C_qC3oF3oFvtHv-BrqCvoWrsa3rBnjEoG_gH0sJz60BkrBzwHoxCvxKo4BnxCw-BvlBozQv3C4pM_YgrCv-BgyB32DwvBn_Kwb_sGoxC32Dg9D3rB42Dw-B4oFokL4-JohP42DgrCojEgZojEnf06HzmH8zGriGw-BnGgyB4S4rB_YgZ3kCgyB_xBwtH4rBw-BgyB4rBAof3rBwlBnuGoqD_rJgkDnqD4lJ3zHw3C_Y4wLwM4kCgyBw1Nwlaw-Bof4kC_Yo4B3rBo5Iv1NoxC_gHgrC_8DoxCnxC4sI3hGgkDnG49CwlB4kC4kCgyBoqDgZg9DoxC49bojEozQwMg9DvMolSnfwyRvlBogI_Y49CwMgrCofw-BwlBnGwMn4Bnfn4B_Y39CwlB3sIwlBvyRgZnlSn8Ev2UnxC_jc3SnjEv-B_8D3kC_qCnqDnfvwDoG_yIw0G_qCgrCnxCg9Dv3ConHn4BgZ3rBnf3rB4Snfo4BAw-B4S4rBvM49CnqD4oF3rBwlBv-B4S_xB3Sv1N_xanxC_xB_2L_Y39CwlB_rJ4zHnqDwwD39CoyJ3rBgoG_YwlBnfnGn4BvlB3zHn4B3oFnqD3-J_rJ3rB_8D_xB3iN4SnjE4kC32D43Kv7Fo4Bn4B4S3zHvlBnjEnqD_xB7gN72C7vX78En4aw3C_jDn4BnnHvqL3kC3hG_jD_oNvM_nGof_kKw-Bn8Eg6HnqDo4BnqD4Sv0G3c3kH3InnC4rB3zHo2M3vdglKn6P42DnjEo5Iv0Ggkc_hOsd3-E",
+          "transport": {
+            "mode": "bus",
+            "name": "5",
+            "category": "Bus",
+            "color": "#F5C500",
+            "textColor": "#000000",
+            "headsign": "Piazza Dante \"Dogana\"",
+            "shortName": "5",
+            "longName": "Piazza Dante P.Fiera Povo Oltrecastello",
+            "wheelchairAccessible": "yes"
+          },
+          "intermediateStops": [
+            {
+              "departure": {
+                "time": "2024-10-24T06:06:00+02:00",
+                "place": {
+                  "name": "Povo \"Centro Civico\"",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.06387,
+                    "lng": 11.151952
+                  },
+                  "wheelchairAccessible": "no",
+                  "id": "45923_897",
+                  "code": "25010x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:06:00+02:00",
+                "place": {
+                  "name": "Povo Salé",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.062005,
+                    "lng": 11.150887
+                  },
+                  "wheelchairAccessible": "no",
+                  "id": "45923_908",
+                  "code": "25040x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:07:00+02:00",
+                "place": {
+                  "name": "Povo \"Fac. Scienze\"",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.063282,
+                    "lng": 11.150174
+                  },
+                  "wheelchairAccessible": "yes",
+                  "id": "45923_899",
+                  "code": "25015x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:08:00+02:00",
+                "place": {
+                  "name": "Povo Valoni",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.065751,
+                    "lng": 11.146343
+                  },
+                  "wheelchairAccessible": "yes",
+                  "id": "45923_887",
+                  "code": "25045x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:09:00+02:00",
+                "place": {
+                  "name": "Mesiano \"Stazione FS\"",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.065054,
+                    "lng": 11.141743
+                  },
+                  "wheelchairAccessible": "yes",
+                  "id": "45923_886",
+                  "code": "25410x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:09:00+02:00",
+                "place": {
+                  "name": "Mesiano \"Fac. Ingegneria\"",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.067201,
+                    "lng": 11.139594
+                  },
+                  "wheelchairAccessible": "yes",
+                  "id": "45923_885",
+                  "code": "25405x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:10:00+02:00",
+                "place": {
+                  "name": "Ponte Lodovico",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.069514,
+                    "lng": 11.140184
+                  },
+                  "wheelchairAccessible": null,
+                  "id": "45923_893",
+                  "code": "24605x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:11:00+02:00",
+                "place": {
+                  "name": "Venezia \"Corallo\"",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.069215,
+                    "lng": 11.136423
+                  },
+                  "wheelchairAccessible": "yes",
+                  "id": "45923_1907",
+                  "code": "21735x"
+                }
+              }
+            },
+            {
+              "departure": {
+                "time": "2024-10-24T06:12:00+02:00",
+                "place": {
+                  "name": "Venezia Cave",
+                  "type": "station",
+                  "location": {
+                    "lat": 46.066443,
+                    "lng": 11.132573
+                  },
+                  "wheelchairAccessible": "no",
+                  "id": "45923_293",
+                  "code": "21750x"
+                }
+              }
+            }
+          ],
+          "agency": {
+            "id": "45923_6b51d43",
+            "name": "Trentino trasporti S.p.A.",
+            "website": "https://www.trentinotrasporti.it/"
+          }
+        },
+        {
+          "id": "R0-S2",
+          "type": "pedestrian",
+          "departure": {
+            "time": "2024-10-24T06:14:00+02:00",
+            "place": {
+              "name": "Venezia \"Port'aquila\"",
+              "type": "station",
+              "location": {
+                "lat": 46.069863,
+                "lng": 11.12824
+              },
+              "wheelchairAccessible": "no",
+              "id": "45923_93",
+              "code": "21745x"
+            }
+          },
+          "arrival": {
+            "time": "2024-10-24T06:15:00+02:00",
+            "place": {
+              "name": null,
+              "type": "place",
+              "location": {
+                "lat": 46.0699,
+                "lng": 11.1278
+              },
+              "wheelchairAccessible": null,
+              "id": null,
+              "code": null
+            }
+          },
+          "polyline": "BGsj873Ck5mnVMnB8BjIoB3IkDoBSvI",
+          "transport": {
+            "mode": "pedestrian",
+            "name": null,
+            "category": null,
+            "color": null,
+            "textColor": null,
+            "headsign": null,
+            "shortName": null,
+            "longName": null,
+            "wheelchairAccessible": null
+          },
+          "intermediateStops": null,
+          "agency": null
+        }
+      ]
+    }
+  ]
+}

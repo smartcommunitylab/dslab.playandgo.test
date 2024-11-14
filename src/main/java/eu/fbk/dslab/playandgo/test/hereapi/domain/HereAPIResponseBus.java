@@ -1,4 +1,4 @@
-package eu.fbk.dslab.playandgo.test.hereapi;
+package eu.fbk.dslab.playandgo.test.hereapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HereAPIResponse {
+public class HereAPIResponseBus {
     private List<Route> routes;
 
     @Data
@@ -26,8 +26,8 @@ public class HereAPIResponse {
     public static class Section {
         private String id;
         private String type;
-        private Departure departure;
-        private Arrival arrival;
+        private TimePoint departure;
+        private TimePoint arrival;
         private String polyline;
         private Transport transport;
         private List<IntermediateStop> intermediateStops;
@@ -36,18 +36,10 @@ public class HereAPIResponse {
 
     @Data
     @NoArgsConstructor
-    public static class Departure {
+    public static class TimePoint {
         private String time;
         private Place place;
     }
-
-    @Data
-    @NoArgsConstructor
-    public static class Arrival {
-        private String time;
-        private Place place;
-    }
-
 
     @Data
     @NoArgsConstructor
@@ -85,7 +77,7 @@ public class HereAPIResponse {
     @Data
     @NoArgsConstructor
     public static class IntermediateStop {
-        private Departure departure;
+        private TimePoint departure;
     }
 
     @Data

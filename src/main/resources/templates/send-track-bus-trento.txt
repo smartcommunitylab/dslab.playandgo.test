@@ -12,61 +12,32 @@
 		"appVersion":"v 1.0.1"
 	},
 	"location": [
-        [# th:each="item, itemStat : ${sections}" th:if="${item.transport.mode} == 'bus'"]
+        [# th:each="item, itemStat : ${points}"]
         {
             "coords" : {
                 "accuracy" : 26,
-                "latitude" : [[${item.departure.place.location.lat}]],
-                "longitude" : [[${item.departure.place.location.lng}]],
+                "latitude" : "[[${item.place.location.lat}]]",
+                "longitude" : "[[${item.place.location.lng}]]",
                 "altitude" : 39.7,
                 "speed" : 2.02,
                 "heading" : 309.58
             },
             "activity" : {
                 "confidence": 100,
-                "type": [[${mean}]]
+                "type": "[[${mean}]]"
             },
             "battery" : {
                 "is_charging": false,
                 "level": 0.9
             },
-            "timestamp": [[${item.departure.time}]],
-            "uuid": "[[${uuid}]]",
+            "timestamp": "[[${item.time}]]",
+            "uuid": "[[${item.place.id}]]",
             "is_moving": true,
             "extras": {
-                "start": [[${item.departure.time}]],
+                "start": "[[${item.time}]]",
                             "idTrip": "[[${trip}]]",
                 "multimodalId": "[[${multimodal}]]"
             }
         }[# th:if="!${itemStat.last}"],[/][/]
-        [# th:each="section, sectionStat : ${sections}"][# th:each="item, itemStat : ${section.intermediateStops}"]
-        {
-            "coords" : {
-                "accuracy" : 26,
-                "latitude" : [[${item.departure.place.location.lat}]],
-                "longitude" : [[${item.departure.place.location.lng}]],
-                "altitude" : 39.7,
-                "speed" : 2.02,
-                "heading" : 309.58
-            },
-            "activity" : {
-                "confidence": 100,
-                "type": "bus"
-            },
-            "battery" : {
-                "is_charging": false,
-                "level": 0.9
-            },
-            "timestamp": [[${item.departure.time}]],
-            "uuid": "[[${item.departure.place.id}]]",
-            "is_moving": true,
-            "extras": {
-                "start": [[${item.departure.time}]],
-                "idTrip": "[[${trip}]]",
-                "multimodalId": "[[${multimodal}]]"
-            }
-        }[# th:if="!${itemStat.last}"],[/]
-        [/]
-        [/]
     ]
 }
