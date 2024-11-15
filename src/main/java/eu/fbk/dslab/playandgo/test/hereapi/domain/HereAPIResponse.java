@@ -1,16 +1,17 @@
 package eu.fbk.dslab.playandgo.test.hereapi.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HereAPIResponseBus {
+public class HereAPIResponse {
     private List<Route> routes;
 
     @Data
@@ -48,6 +49,7 @@ public class HereAPIResponseBus {
         private String name;
         private String type;
         private Location location;
+        private Location originalLocation;
         private String wheelchairAccessible;
         private String id;
         private String code;
