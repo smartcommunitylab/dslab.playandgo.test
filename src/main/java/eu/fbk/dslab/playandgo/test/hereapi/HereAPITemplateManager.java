@@ -32,9 +32,6 @@ public class HereAPITemplateManager {
     @Value("${destinationTrento:}")
     private String destinationTrento;
 
-    @Value("${departureTime:}")
-    private String departureTime;
-
 
     @Autowired
     private TemplateEngine templateEngine;
@@ -125,20 +122,21 @@ public class HereAPITemplateManager {
 
             if (mode.equals("bus")) {
                 List<HereAPIResponse.TimePoint> allTimePoints = new ArrayList<>();
+                List<HereAPIResponse.Section> busSections = new ArrayList<>();
                 for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
                     for (HereAPIResponse.Section section : route.getSections()) {
-                        if (section.getTransport().getMode().equals(mode)) {
-                            HereAPIResponse.TimePoint departure = section.getDeparture();
-                            allTimePoints.add(departure);
+                        if (section.getTransport().getMode().equals("bus")) {
+                            busSections.add(section);
                         }
-                        if (section.getIntermediateStops() != null) {
-                            for(HereAPIResponse.IntermediateStop stop : section.getIntermediateStops()) {
-                                allTimePoints.add(stop.getDeparture());
-                            }
-                            HereAPIResponse.TimePoint lastPoint = section.getArrival();
-                            allTimePoints.add(lastPoint);
+                    }
+                    HereAPIResponse.TimePoint departure = busSections.get(0).getDeparture();
+                    allTimePoints.add(departure);
+                    if (busSections.get(0).getIntermediateStops() != null) {
+                        for(HereAPIResponse.IntermediateStop stop : busSections.get(0).getIntermediateStops()) {
+                            allTimePoints.add(stop.getDeparture());
                         }
-
+                        HereAPIResponse.TimePoint arrival = busSections.get(0).getArrival();
+                        allTimePoints.add(arrival);
                     }
                 }
 
@@ -161,15 +159,6 @@ public class HereAPITemplateManager {
                 variables.put("points", allTimePoints);
 
             }
-
-            if(StringUtils.isNotEmpty(territory)) {
-                return getContent("hereapi/send-track-" + mean + "-" + territory + ".txt", variables);
-            }
-            else {
-                return getContent("hereapi/send-track-" + mean + ".txt", variables);
-            }
-
-
         }
         else {
             String departure = "";
@@ -193,7 +182,6 @@ public class HereAPITemplateManager {
 
             variables.put("points", points);
 
-
             Date startDate = sdf.parse(departure);
             Date endDate = sdf.parse(arrival);
 
@@ -207,10 +195,9 @@ public class HereAPITemplateManager {
             	point.setTime(String.valueOf(cal.getTime().getTime()));
             	 cal.add(Calendar.MILLISECOND, segmentTimeInt);
             }
-
-            return getContent("hereapi/send-track-polyline.txt", variables);
         }
 
+        return getContent("hereapi/send-track-template.txt", variables);
     }
 
 

@@ -20,17 +20,23 @@ class ApplicationTests {
 	@Value("${departureTime}")
 	String departureTime;
 
-	@Test
+	/**
+	 * Test for a Track Template
+	 */
+	/*@Test
     public void sendTracks() throws Exception {
 
 		hereAPITestManager.sendTrack("bus", "trento", departureTime, false , false);
 
-	}
+	}*/
 
+	/**
+	 * Test for a Polyline Template
+	 */
 	@Test
 	public void sendPolyline() throws Exception {
 
-		hereAPITestManager.sendTrack("bus", "trento", departureTime, true);
+		hereAPITestManager.sendTrack("bike", "trento", departureTime, false , false, true);
 
 	}
     

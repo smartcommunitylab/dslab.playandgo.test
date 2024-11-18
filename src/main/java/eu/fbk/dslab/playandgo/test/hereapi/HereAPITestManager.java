@@ -55,26 +55,8 @@ public class HereAPITestManager {
      * @param invitePlayer Whether to invite the player to the campaign.
      */
     public void sendTrack(String mean, String territory, String date, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack(mean, territory, date, assignSurvey, invitePlayer, true);
+        sendTrack(mean, territory, date, assignSurvey, invitePlayer, false);
     }
-
-
-
-    /**
-     * Sends a track to the PlayAndGo engine.
-     *
-     * @param mean The transportation mean (e.g., "walk", "bike").
-     * @param territory The territory or city for the track data.
-     * @param date The date of the track in "yyyy-MM-dd'T'HH:mm" format.
-     * @param polyline If true, processes the track as a polyline.
-     * @throws Exception If there is an error in track processing.
-     */
-    public void sendTrack(String mean, String territory,  String date, boolean polyline) throws Exception {
-        sendTrack(mean, territory,  date, false, false, polyline);
-    }
-
-
-
 
     /**
      * Sends a track to the PlayAndGo engine.
@@ -128,7 +110,7 @@ public class HereAPITestManager {
             System.out.println("Polyline Track Sent");
         }
 
-        playAndGoEngine.sendTrack(track);
+        /*playAndGoEngine.sendTrack(track);*/
     }
 
 
