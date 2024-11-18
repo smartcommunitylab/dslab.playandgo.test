@@ -3,7 +3,7 @@
 		"available":true,
 		"platform":"Android",
 		"version":"9",
-		"uuid":"8e8f3a9e-af5f-4756-b714-40a390520951",
+		"uuid":"88d6c96b-3811-43b6-9fdd-857f56510148",
 		"cordova":"8.1.0",
 		"model":"BND-L21",
 		"manufacturer":"HUAWEI",
@@ -35,8 +35,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:05:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -61,8 +61,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:06:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -87,8 +87,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:06:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -113,8 +113,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:07:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -139,8 +139,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:08:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -165,8 +165,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:09:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -191,8 +191,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:09:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -217,8 +217,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:10:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -243,8 +243,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:11:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -269,8 +269,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:12:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         },
         {
@@ -295,8 +295,8 @@
             "is_moving": true,
             "extras": {
                 "start": "2024-10-24T06:14:00+02:00",
-                            "idTrip": "bus_MJ2xpnhNcVZf",
-                "multimodalId": "bus_MJ2xpnhNcVZf_modal"
+                            "idTrip": "bus_3fpFwBmEGNTM",
+                "multimodalId": "bus_3fpFwBmEGNTM_modal"
             }
         }
     ]

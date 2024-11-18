@@ -1,0 +1,73 @@
+{
+  "routes": [
+    {
+      "id": "033bda72-ee15-4a82-a5c0-0932af9c777e",
+      "sections": [
+        {
+          "id": "e76328c0-4df4-4e3c-aa70-691b1f97ff2e",
+          "type": "vehicle",
+          "departure": {
+            "time": "2024-10-24T06:00:00+02:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 46.0662064,
+                "lng": 11.1541863
+              },
+              "originalLocation": {
+                "lat": 46.0662,
+                "lng": 11.1542
+              }
+            }
+          },
+          "arrival": {
+            "time": "2024-10-24T06:12:35+02:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 46.0699199,
+                "lng": 11.12794
+              }
+            }
+          },
+          "polyline": "BG8h173C0w5oVzBzBjD_ErEjNjD_J_J4DrEoB7QkD_E8B_E4D_EvHjD_E3DnGnBvCjDzFjD7G3DjI3DjInGrO_EvM_T_xB3D_JnGnQ7GvRvC7G3DjIjIzUrE7LjD_J8BT8B7BoBvCUjDAvCTjDnBvCnBnB7BnB7BT7BAA7GAzKUzFAjDUrJoB3NU3NUrJUzFU7GUrEoB_E8BzFwCrEwCjD4DvCsEnBsEAoG8BoGwC8GkDkIkD8G8B4I8B4IoBkIAsEAsET0F7BgFvCgF3DwHnGkN7LwH7GoGvH4DnGkDjI8BrJU7GT7GnB7G7BnGvC_EjD_ErE7G3D_ErEzFjD3D3I_J_O7QvR_TvH3IvH3I7GvHnB7BnGjIrE7GvC_E7BzF7BjIT_EA7GU7GoBzK8B7LsJnzBgF7a8BrJ4D7VkD7Q0Fnf4DrT8BnL8B3I8BnG8BrEkDrE4DjDsE7BgFnBwCAkDToLnBsJnB8BTwHnBoGnB8LvCsEAkIToGAoGAgFnBgFvCsErE4DnGwCnGwCzKoB_JoBnLUvHU_EoB7G8B_E8BjDwCjDkDjDkD7B4DnB4DTgFUsEwC4DkD4DgFkD0FwC0F4DkIgFsJgFkI4IkNoGsJwH0K0FoGsEsEsEwCsE8B8GoB0FAsEnBgFvC4DvC0F_EoGzFwH7GoGzF4IjI0FzFsE_E8B4D4DwC4DAsEvCoBjDU3DA_EnB3D7BjDvC7B7BTvCA3D7G3D_EnQ7QjD3DvC3D3DnGvCnG7BzF7BnG7BvHnB7GT7GAnGUnGoBzF8BzFkD_EkD3D4DjDsEvCgFvC0KrE0F3DwH7G4DnGoB7GUvHTnG7BzF7B3DvCjDvCvC_EvCzF7BrJvCnQjDjInB3DTrJvCzKvC3I7BjI7BrETrET_OjDjInBvHT7LA_JUrEUvM8BzFUnf4DvHU_ET3DnB3DjDjD3D3I3N7GnLrEjI3DrJvCjIrEvW7B_JvC7QnB7QA3IUjIwC3NwCnGkDrE4D3DsEjD8G3DsEvCsE3D4D7G8BvHU_EUjDU_JTvHnB3SAzFU3I8BjIkDrJkD3I8B_EkN7fgK3XwCzFsJjSsE7G0FjI8QjX0FvHgFzF0K3IkInG4I_EgFvCkD7Boa_O8anQoBTkS3IkDnBkDnB4D7BkDjDwC3D8BjDwCzF8BnG8BjIoB3IkDoB",
+          "transport": {
+            "mode": "bicycle"
+          }
+        },
+        {
+          "id": "f414255c-050e-437e-9f03-73815e46d011",
+          "type": "pedestrian",
+          "departure": {
+            "time": "2024-10-24T06:12:35+02:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 46.0699199,
+                "lng": 11.12794
+              }
+            }
+          },
+          "arrival": {
+            "time": "2024-10-24T06:12:46+02:00",
+            "place": {
+              "type": "place",
+              "location": {
+                "lat": 46.0699286,
+                "lng": 11.1278038
+              },
+              "originalLocation": {
+                "lat": 46.0699,
+                "lng": 11.1278
+              }
+            }
+          },
+          "polyline": "BGgq873CoomnVSvI",
+          "transport": {
+            "mode": "pedestrian"
+          }
+        }
+      ]
+    }
+  ]
+}
