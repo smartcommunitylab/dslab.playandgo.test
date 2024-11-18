@@ -22,7 +22,7 @@ public class ApiController {
 			@RequestParam String territory,
 			@RequestParam(required = false) boolean assignSurvey,
 			@RequestParam(required = false) boolean invitePlayer) throws Exception {
-		hereTestManager.sendTrack(mean, territory, date, assignSurvey, invitePlayer);
+		hereTestManager.sendTrack(mean, territory, date, assignSurvey, invitePlayer, true);
 	}
 	
 	@GetMapping("/api/test/track/multimodal")
