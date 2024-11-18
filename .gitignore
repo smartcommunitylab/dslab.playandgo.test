@@ -34,3 +34,6 @@ replay_pid*
 .classpath
 .project
 .settings
+
+#results folder of sendTrack() json files
+resources/templates/hereapi/results/
