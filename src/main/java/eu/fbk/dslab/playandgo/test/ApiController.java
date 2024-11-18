@@ -5,18 +5,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import eu.fbk.dslab.playandgo.test.hereapi.HereAPITestManager;
+
 @RestController
 public class ApiController {
 	@Autowired
 	TestManager testManager;
+	
+	@Autowired
+	HereAPITestManager hereTestManager;
 
 	@GetMapping("/api/test/track/send")
-	public void sendTrack(@RequestParam String mean, 
+	public void sendTrack(
+			@RequestParam String mean, 
 			@RequestParam String date,
-			@RequestParam(required = false) String territory,
+			@RequestParam String territory,
 			@RequestParam(required = false) boolean assignSurvey,
 			@RequestParam(required = false) boolean invitePlayer) throws Exception {
-		testManager.sendTrack(mean, territory, date, assignSurvey, invitePlayer);
+		hereTestManager.sendTrack(mean, territory, date, assignSurvey, invitePlayer);
 	}
 	
 	@GetMapping("/api/test/track/multimodal")

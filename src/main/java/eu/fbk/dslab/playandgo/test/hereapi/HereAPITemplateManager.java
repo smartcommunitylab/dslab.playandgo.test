@@ -2,11 +2,14 @@ package eu.fbk.dslab.playandgo.test.hereapi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import eu.fbk.dslab.playandgo.test.hereapi.domain.HereAPIResponse;
-import eu.fbk.dslab.playandgo.test.hereapi.polyline.PolylineEncoderDecoder;
-import eu.fbk.dslab.playandgo.test.hereapi.service.HereAPIService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +18,10 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import eu.fbk.dslab.playandgo.test.hereapi.domain.HereAPIResponse;
+import eu.fbk.dslab.playandgo.test.hereapi.polyline.PolylineEncoderDecoder;
+import eu.fbk.dslab.playandgo.test.hereapi.service.HereAPIService;
 
 @Component
 public class HereAPITemplateManager {
@@ -35,14 +41,6 @@ public class HereAPITemplateManager {
 
     @Autowired
     private HereAPIService hereAPIService;
-
-    private final ObjectMapper objectMapper;
-
-    public HereAPITemplateManager(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-
 
     /**
      * Get the content of the template with the given name by processing it with
@@ -186,42 +184,29 @@ public class HereAPITemplateManager {
                         arrival = section.getArrival().getTime();
                         encodedPolyline = section.getPolyline();
                     }
-
-
                 }
             }
 
             variables.put("polyline", encodedPolyline);
 
-            List<HereAPIResponse.Location> locations = getPolylineLocations(encodedPolyline);
+            List<HereAPIResponse.TimePoint> points = getPolylineLocations(encodedPolyline);
 
-            variables.put("locations", locations);
+            variables.put("points", points);
 
 
             Date startDate = sdf.parse(departure);
             Date endDate = sdf.parse(arrival);
 
             long travelTimeMillis = endDate.getTime() - startDate.getTime();
-            long segmentTime = travelTimeMillis / ((long) locations.size() - 1);
+            long segmentTime = travelTimeMillis / ((long) points.size() - 1);
             int segmentTimeInt = (int) (segmentTime);
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(startDate);
-            List <String> timestamps = new ArrayList<>();
-
-
-            for(HereAPIResponse.Location location : locations) {
-                if (location == locations.get(0)) {
-                    timestamps.add(departure);
-                }
-                else {
-                    cal.add(Calendar.MILLISECOND, segmentTimeInt);
-                    String newTime = sdf.format(cal.getTime());
-                    timestamps.add(newTime);
-                }
+            for(HereAPIResponse.TimePoint point : points) {
+            	point.setTime(String.valueOf(cal.getTime().getTime()));
+            	 cal.add(Calendar.MILLISECOND, segmentTimeInt);
             }
-
-            variables.put("timestamps", timestamps);
 
             return getContent("hereapi/send-track-polyline.txt", variables);
         }
@@ -236,20 +221,24 @@ public class HereAPITemplateManager {
  * @param encodedPolyline the URL-safe encoded polyline string representing a series of geographical coordinates
  * @return a list of Location objects, each containing latitude and longitude coordinates derived from the decoded polyline
  */
-    public List<HereAPIResponse.Location> getPolylineLocations(String encodedPolyline) {
+    public List<HereAPIResponse.TimePoint> getPolylineLocations(String encodedPolyline) {
 
         List<PolylineEncoderDecoder.LatLngZ> coordinates = PolylineEncoderDecoder.decode(encodedPolyline);
 
-        List<HereAPIResponse.Location> locations = new ArrayList<>();
+        List<HereAPIResponse.TimePoint> points = new ArrayList<>();
 
         for (PolylineEncoderDecoder.LatLngZ latLngZ : coordinates) {
-            HereAPIResponse.Location point = new HereAPIResponse.Location();
-            point.setLat(latLngZ.lat);
-            point.setLng(latLngZ.lng);
-            locations.add(point);
+        	HereAPIResponse.TimePoint point = new HereAPIResponse.TimePoint();
+        	HereAPIResponse.Place place = new HereAPIResponse.Place();        	
+            HereAPIResponse.Location loc = new HereAPIResponse.Location();
+            loc.setLat(latLngZ.lat);
+            loc.setLng(latLngZ.lng);
+            place.setLocation(loc);
+            point.setPlace(place);
+            points.add(point);
         }
 
-        return locations;
+        return points;
     }
 
 

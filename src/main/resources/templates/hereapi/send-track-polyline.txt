@@ -12,12 +12,12 @@
 		"appVersion":"v 1.0.1"
 	},
 	"location": [
-        [# th:each="item, itemStat : ${locations}"]
+        [# th:each="item, itemStat : ${points}"]
         {
             "coords" : {
                 "accuracy" : 26,
-                "latitude" : "[[${item.lat}]]",
-                "longitude" : "[[${item.lng}]]",
+                "latitude" : "[[${item.place.location.lat}]]",
+                "longitude" : "[[${item.place.location.lng}]]",
                 "altitude" : 39.7,
                 "speed" : 2.02,
                 "heading" : 309.58
@@ -30,11 +30,11 @@
                 "is_charging": false,
                 "level": 0.9
             },
-            "timestamp": "[[${timestamps.get(itemStat.index)}]]",
+            "timestamp": "[[${item.time}]]",
             "uuid": "[[${uuid}]]",
             "is_moving": true,
             "extras": {
-                "start": "[[${timestamps.get(itemStat.index)}]]",
+                "start": "[[${item.time}]]",
                             "idTrip": "[[${trip}]]",
                 "multimodalId": "[[${multimodal}]]"
             }

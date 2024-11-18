@@ -55,7 +55,7 @@ public class HereAPITestManager {
      * @param invitePlayer Whether to invite the player to the campaign.
      */
     public void sendTrack(String mean, String territory, String date, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack(mean, territory, date, assignSurvey, invitePlayer, false);
+        sendTrack(mean, territory, date, assignSurvey, invitePlayer, true);
     }
 
 
@@ -94,11 +94,10 @@ public class HereAPITestManager {
         String multimodalId = tripId + "_modal";
         String uuid = RandomStringUtils.random(12, true, true);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         Date startDate = sdf.parse(startWeek);
         Date endDate = sdf.parse(endWeek);
-        Date trackDate = sdf.parse(date);
 
         if(assignSurvey) {
             String assignSurveyJson = templateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
@@ -129,7 +128,7 @@ public class HereAPITestManager {
             System.out.println("Polyline Track Sent");
         }
 
-        /*	playAndGoEngine.sendTrack(track);*/
+        playAndGoEngine.sendTrack(track);
     }
 
 
