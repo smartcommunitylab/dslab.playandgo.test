@@ -2,13 +2,7 @@ package eu.fbk.dslab.playandgo.test.hereapi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -89,57 +83,122 @@ public class HereAPITemplateManager {
     }*/
 
 
-    public String getApiData(String mean, String date, String territory, String origin, String destination) throws JsonProcessingException, ParseException {
+    public String getApiData(String mean, String date, String origin, String destination, boolean multimodal) throws JsonProcessingException, ParseException {
 
-        String tripId = mean + "_" + RandomStringUtils.random(12, true, true);
-        String multimodalId = tripId + "_modal";
+        String tripId = "";
+        String multimodalId = "";
 
         HereAPIResponse hereAPIResponse = hereAPIService.fetchRouteData(mean, date, origin, destination);
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("trip", tripId);
-        variables.put("multimodal", multimodalId);
-        variables.put("city", territory);
-        variables.put("mean", mean);
         variables.put("uuid", UUID.randomUUID().toString());
 
         String mode = hereAPIService.getMode(mean);
-        List<HereAPIResponse.TimePoint> points;
+        List<HereAPIResponse.TimePoint> points = new ArrayList<>();
+        List<List<HereAPIResponse.TimePoint>> allPoints = new ArrayList<>();
         List<HereAPIResponse.Section> modeSections = new ArrayList<>();
+        List<String> tripIds = new ArrayList<>();
+        List<String> means = new ArrayList<>();
+
         String departurePolyline = "";
         String arrivalPolyline = "";
         String encodedPolyline = "";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        /*if (!multimodal) {
+            for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
+                for (HereAPIResponse.Section section : route.getSections()) {
+                    if (section.getTransport().getMode().equals(mode)) {
+                        modeSections.add(section);
+                        departurePolyline = modeSections.get(0).getDeparture().getTime();
+                        arrivalPolyline = modeSections.get(0).getArrival().getTime();
+                        encodedPolyline = modeSections.get(0).getPolyline();
+                        tripId = convertToMean(modeSections.get(0).getTransport().getMode()) + "_" + RandomStringUtils.random(12, true, true);
+                        tripIds.add(tripId);
+                    }
+
+                }
+            }
+
+            points = getPolylineLocations(encodedPolyline);
+
+            Date startDate = sdf.parse(departurePolyline);
+            Date endDate = sdf.parse(arrivalPolyline);
+
+            long travelTimeMillis = endDate.getTime() - startDate.getTime();
+            long segmentTime = travelTimeMillis / ((long) points.size() - 1);
+            int segmentTimeInt = (int) (segmentTime);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDate);
+            for(HereAPIResponse.TimePoint point : points) {
+                point.setTime(String.valueOf(cal.getTime().getTime()));
+                cal.add(Calendar.MILLISECOND, segmentTimeInt);
+            }
+            means.add(mean);
+        }*/
 
         for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
             for (HereAPIResponse.Section section : route.getSections()) {
-                if (section.getTransport().getMode().equals(mode)) {
-                    modeSections.add(section);
-                    departurePolyline = modeSections.get(0).getDeparture().getTime();
-                    arrivalPolyline = modeSections.get(0).getArrival().getTime();
-                    encodedPolyline = modeSections.get(0).getPolyline();
-                }
+                if (!multimodal && section.getTransport().getMode().equals(mode)) {
+                    if (modeSections.isEmpty()) {
+                        modeSections.add(section);
+                        departurePolyline = modeSections.get(0).getDeparture().getTime();
+                        arrivalPolyline = modeSections.get(0).getArrival().getTime();
+                        encodedPolyline = modeSections.get(0).getPolyline();
+                        tripId = convertToMean(modeSections.get(0).getTransport().getMode()) + "_" + RandomStringUtils.random(12, true, true);
+                        tripIds.add(tripId);
+                        startDate = sdf.parse(departurePolyline);
+                        endDate = sdf.parse(arrivalPolyline);
+                        points = getPolylineLocations(encodedPolyline);
+                        means.add(mean);
+                        multimodalId = tripId + "_modal";
 
+                        long travelTimeMillis = endDate.getTime() - startDate.getTime();
+                        long segmentTime = travelTimeMillis / ((long) points.size() - 1);
+                        int segmentTimeInt = (int) (segmentTime);
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(startDate);
+                        for(HereAPIResponse.TimePoint point : points) {
+                            point.setTime(String.valueOf(cal.getTime().getTime()));
+                            cal.add(Calendar.MILLISECOND, segmentTimeInt);
+                        }
+                        allPoints.add(points);
+                    }
+                }
+                else if (multimodal) {
+                    tripId = convertToMean(section.getTransport().getMode()) + "_" + RandomStringUtils.random(12, true, true);
+                    tripIds.add(tripId);
+                    points = getPolylineLocations(section.getPolyline());
+                    startDate = sdf.parse(section.getDeparture().getTime());
+                    endDate = sdf.parse(section.getArrival().getTime());
+                    modeSections.add(section);
+                    means.add(convertToMean(section.getTransport().getMode()));
+
+                    long travelTimeMillis = endDate.getTime() - startDate.getTime();
+                    long segmentTime = travelTimeMillis / ((long) points.size() - 1);
+                    int segmentTimeInt = (int) (segmentTime);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(startDate);
+                    for(HereAPIResponse.TimePoint point : points) {
+                        point.setTime(String.valueOf(cal.getTime().getTime()));
+                        cal.add(Calendar.MILLISECOND, segmentTimeInt);
+                    }
+                    allPoints.add(points);
+                    multimodalId = tripIds.get(0) + "_modal";
+                }
             }
         }
 
-        points = getPolylineLocations(encodedPolyline);
-
-        Date startDate = sdf.parse(departurePolyline);
-        Date endDate = sdf.parse(arrivalPolyline);
-
-        long travelTimeMillis = endDate.getTime() - startDate.getTime();
-        long segmentTime = travelTimeMillis / ((long) points.size() - 1);
-        int segmentTimeInt = (int) (segmentTime);
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        for(HereAPIResponse.TimePoint point : points) {
-            point.setTime(String.valueOf(cal.getTime().getTime()));
-            cal.add(Calendar.MILLISECOND, segmentTimeInt);
-        }
-
-        variables.put("points", points);
+        variables.put("multimodal", multimodalId);
+        variables.put("sections", modeSections);
+        variables.put("tripIds", tripIds);
+        variables.put("points", allPoints);
+        variables.put("means", means);
         return getContent("hereapi/send-track-template.txt", variables);
 
 
@@ -171,6 +230,42 @@ public class HereAPITemplateManager {
         }
 
         return points;
+    }
+
+    public String convertToMean(String mode) {
+        String mean;
+        if(StringUtils.isNotEmpty(mode)) {
+            Set<String> trainModes = Set.of(
+                    "highSpeedTrain",
+                    "intercityTrain",
+                    "interRegionalTrain",
+                    "regionalTrain",
+                    "cityTrain"
+            );
+
+            switch (mode) {
+                case "pedestrian":
+                    mean = "walk";
+                    break;
+                case "bicycle":
+                    mean = "bike";
+                    break;
+                case "bus":
+                    mean = "bus";
+                    break;
+                default:
+                    if (trainModes.contains(mode)) {
+                        mean = "train";
+                    } else {
+                        throw new IllegalArgumentException("mode not supported");
+                    }
+            }
+        }
+        else {
+            throw new IllegalArgumentException("mode cannot be null");
+        }
+
+        return mean;
     }
 
 

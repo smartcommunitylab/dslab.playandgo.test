@@ -19,12 +19,11 @@ public class ApiController {
 	public void sendTrack(
 			@RequestParam String mean, 
 			@RequestParam String date,
-			@RequestParam String territory,
 			@RequestParam String origin,
 			@RequestParam String destination,
 			@RequestParam(required = false) boolean assignSurvey,
 			@RequestParam(required = false) boolean invitePlayer) throws Exception {
-		hereTestManager.sendTrack(mean, territory, date, origin, destination, assignSurvey, invitePlayer, true);
+		hereTestManager.sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, true);
 	}
 	
 	@GetMapping("/api/test/track/multimodal")

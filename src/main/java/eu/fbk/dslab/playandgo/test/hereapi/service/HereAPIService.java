@@ -43,19 +43,23 @@ public class HereAPIService {
      */
     public String getMode(String mean) {
 
-        String mode = "";
+        String mode;
         if(StringUtils.isNotEmpty(mean)) {
-            if(mean.equals("walk")) {
-                mode = "pedestrian";
-            }
-            else if (mean.equals("bike")) {
-                mode = "bicycle";
-            }
-            else if(mean.equals("bus")) {
-                mode = "bus";
-            }
-            else {
-                throw new IllegalArgumentException("mean not supported");
+            switch (mean) {
+                case "walk":
+                    mode = "pedestrian";
+                    break;
+                case "bike":
+                    mode = "bicycle";
+                    break;
+                case "bus":
+                    mode = "bus";
+                    break;
+                case "train":
+                    mode = "highSpeedTrain,intercityTrain,interRegionalTrain,regionalTrain,cityTrain";
+                    break;
+                default:
+                    throw new IllegalArgumentException("mean not supported");
             }
         }
         else {
@@ -79,20 +83,19 @@ public class HereAPIService {
      */
     public String getUrl(String mode, String origin, String destination, String departureTime, String mean) {
         String url = "";
-
-        if (mode.equals("bus") ){
-            url = hereTransitApiUrl + "?apiKey=" + hereApiKey
-                    + "&origin=" + origin + "&destination=" + destination
-                    + "&departureTime=" + departureTime
-                    + "&modes=" + getMode(mean)
-                    + "&return=polyline,intermediate";
-        }
-        else if (mode.equals("pedestrian") || mode.equals("bicycle")) {
+        if (mode.equals("pedestrian") || mode.equals("bicycle")) {
             url = hereRouteApiUrl + "?apiKey=" + hereApiKey
                     + "&origin=" + origin + "&destination=" + destination
                     + "&departureTime=" + departureTime
                     + "&transportMode=" + mode
                     + "&return=polyline";
+        }
+        else  {
+            url = hereTransitApiUrl + "?apiKey=" + hereApiKey
+                    + "&origin=" + origin + "&destination=" + destination
+                    + "&departureTime=" + departureTime
+                    + "&modes=" + getMode(mean)
+                    + "&return=polyline,intermediate";
         }
 
         return url;

@@ -12,20 +12,19 @@ class ApplicationTests {
     @Autowired
     private HereAPITestManager hereAPITestManager;
 
-
 	@Value("${departureTime}")
 	String departureTime;
 
 	String origin = "46.0659,11.1545";
 	String destination = "46.0342,11.1314";
-
-	/**
-	 * Test for a Polyline Template
-	 */
 	@Test
 	public void sendPolyline() throws Exception {
+		hereAPITestManager.sendTrack("bus", departureTime, origin, destination, false , false);
 
-		hereAPITestManager.sendTrack("walk", "trento",  departureTime, origin, destination, false , false);
+	}
+	@Test
+	public void sendMultimodal() throws Exception {
+		hereAPITestManager.sendTrack("bus", departureTime, origin, destination, false , false, true);
 
 	}
     

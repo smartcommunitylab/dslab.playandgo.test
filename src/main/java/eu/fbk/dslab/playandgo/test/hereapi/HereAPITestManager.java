@@ -45,12 +45,12 @@ public class HereAPITestManager {
 
 
 
-    public void sendTrack(String mean, String territory, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack(mean, territory, date, origin, destination, assignSurvey, invitePlayer, false);
+    public void sendTrack(String mean, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
+        sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, false);
     }
 
     @SuppressWarnings("unused")
-    public void sendTrack(String mean, String territory, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
+    public void sendTrack(String mean, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
 
         String uuid = RandomStringUtils.random(12, true, true);
 
@@ -71,7 +71,7 @@ public class HereAPITestManager {
             Thread.sleep(1000);
         }
 
-        String track = hereAPITemplateManager.getApiData(mean, date, territory, origin, destination);
+        String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
 
         if (multimodal) {
             String filePath = outputDir + "/resultDataMultimodal" + mean + ".json";
@@ -81,7 +81,7 @@ public class HereAPITestManager {
             System.out.println("Multimodal Track sent");
         }
         else {
-            String filePath = outputDir + "/resultDataPolyline" + mean + ".json";
+            String filePath = outputDir + "/resultDataPolyline2" + mean + ".json";
 
             Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
