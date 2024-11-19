@@ -117,73 +117,70 @@ public class HereAPITemplateManager {
         variables.put("uuid", UUID.randomUUID().toString());
 
         String mode = hereAPIService.getMode(mean);
+        List<HereAPIResponse.TimePoint> points = new ArrayList<>();
+        List<HereAPIResponse.Section> busSections = new ArrayList<>();
+        HereAPIResponse.TimePoint departure;
+        HereAPIResponse.TimePoint arrival;
 
+
+        //Track Not Polyline
         if (!polyline) {
-
             if (mode.equals("bus")) {
-                List<HereAPIResponse.TimePoint> allTimePoints = new ArrayList<>();
-                List<HereAPIResponse.Section> busSections = new ArrayList<>();
                 for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
                     for (HereAPIResponse.Section section : route.getSections()) {
-                        if (section.getTransport().getMode().equals("bus")) {
+                        if (section.getTransport().getMode().equals(mode)) {
                             busSections.add(section);
                         }
                     }
-                    HereAPIResponse.TimePoint departure = busSections.get(0).getDeparture();
-                    allTimePoints.add(departure);
+                    departure = busSections.get(0).getDeparture();
+                    points.add(departure);
                     if (busSections.get(0).getIntermediateStops() != null) {
                         for(HereAPIResponse.IntermediateStop stop : busSections.get(0).getIntermediateStops()) {
-                            allTimePoints.add(stop.getDeparture());
+                            points.add(stop.getDeparture());
                         }
-                        HereAPIResponse.TimePoint arrival = busSections.get(0).getArrival();
-                        allTimePoints.add(arrival);
                     }
+                    arrival = busSections.get(0).getArrival();
+                    points.add(arrival);
                 }
-
-                variables.put("points", allTimePoints);
 
             }
             else if (mode.equals("pedestrian") || mode.equals("bicycle")) {
-                List<HereAPIResponse.TimePoint> allTimePoints = new ArrayList<>();
                 for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
                     for (HereAPIResponse.Section section : route.getSections()){
                         if (section.getTransport().getMode().equals(mode)) {
-                            HereAPIResponse.TimePoint departure = section.getDeparture();
-                            HereAPIResponse.TimePoint arrival = section.getArrival();
-                            allTimePoints.add(departure);
-                            allTimePoints.add(arrival);
+                            departure = section.getDeparture();
+                            arrival = section.getArrival();
+                            points.add(departure);
+                            points.add(arrival);
                         }
                     }
                 }
 
-                variables.put("points", allTimePoints);
-
             }
         }
+        //Polyline
         else {
-            String departure = "";
-            String arrival = "";
+            String departurePolyline = "";
+            String arrivalPolyline = "";
             String encodedPolyline = "";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
             for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
                 for (HereAPIResponse.Section section : route.getSections()) {
                     if (section.getTransport().getMode().equals(mode)) {
-                        departure = section.getDeparture().getTime();
-                        arrival = section.getArrival().getTime();
-                        encodedPolyline = section.getPolyline();
+                        busSections.add(section);
                     }
+                    departurePolyline = busSections.get(0).getDeparture().getTime();
+                    arrivalPolyline = busSections.get(0).getArrival().getTime();
+                    encodedPolyline = busSections.get(0).getPolyline();
+
                 }
             }
 
-            variables.put("polyline", encodedPolyline);
+            points = getPolylineLocations(encodedPolyline);
 
-            List<HereAPIResponse.TimePoint> points = getPolylineLocations(encodedPolyline);
-
-            variables.put("points", points);
-
-            Date startDate = sdf.parse(departure);
-            Date endDate = sdf.parse(arrival);
+            Date startDate = sdf.parse(departurePolyline);
+            Date endDate = sdf.parse(arrivalPolyline);
 
             long travelTimeMillis = endDate.getTime() - startDate.getTime();
             long segmentTime = travelTimeMillis / ((long) points.size() - 1);
@@ -193,10 +190,10 @@ public class HereAPITemplateManager {
             cal.setTime(startDate);
             for(HereAPIResponse.TimePoint point : points) {
             	point.setTime(String.valueOf(cal.getTime().getTime()));
-            	 cal.add(Calendar.MILLISECOND, segmentTimeInt);
+                cal.add(Calendar.MILLISECOND, segmentTimeInt);
             }
         }
-
+        variables.put("points", points);
         return getContent("hereapi/send-track-template.txt", variables);
     }
 
@@ -216,7 +213,7 @@ public class HereAPITemplateManager {
 
         for (PolylineEncoderDecoder.LatLngZ latLngZ : coordinates) {
         	HereAPIResponse.TimePoint point = new HereAPIResponse.TimePoint();
-        	HereAPIResponse.Place place = new HereAPIResponse.Place();        	
+        	HereAPIResponse.Place place = new HereAPIResponse.Place();
             HereAPIResponse.Location loc = new HereAPIResponse.Location();
             loc.setLat(latLngZ.lat);
             loc.setLng(latLngZ.lng);
