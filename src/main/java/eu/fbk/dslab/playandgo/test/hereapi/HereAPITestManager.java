@@ -88,7 +88,7 @@ public class HereAPITestManager {
             System.out.println("Polyline Track Sent");
         }
 
-        /*playAndGoEngine.sendTrack(track);*/
+        playAndGoEngine.sendTrack(track);
     }
 
 

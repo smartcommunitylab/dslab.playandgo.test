@@ -22,8 +22,9 @@ public class ApiController {
 			@RequestParam String origin,
 			@RequestParam String destination,
 			@RequestParam(required = false) boolean assignSurvey,
-			@RequestParam(required = false) boolean invitePlayer) throws Exception {
-		hereTestManager.sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, true);
+			@RequestParam(required = false) boolean invitePlayer,
+			@RequestParam(required = false) boolean multimodal) throws Exception {
+		hereTestManager.sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, multimodal);
 	}
 	
 	@GetMapping("/api/test/track/multimodal")

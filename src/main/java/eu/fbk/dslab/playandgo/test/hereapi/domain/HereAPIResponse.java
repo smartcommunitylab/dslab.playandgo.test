@@ -40,6 +40,7 @@ public class HereAPIResponse {
     public static class TimePoint {
         private String time;
         private Place place;
+        private String tripId;
     }
 
     @Data

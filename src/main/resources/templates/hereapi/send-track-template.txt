@@ -24,7 +24,7 @@
             },
             "activity" : {
                 "confidence": 100,
-                "type": "still]"
+                "type": "still"
             },
             "battery" : {
                 "is_charging": false,
