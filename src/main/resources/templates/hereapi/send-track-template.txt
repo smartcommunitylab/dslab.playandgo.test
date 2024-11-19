@@ -12,8 +12,8 @@
 		"appVersion":"v 1.0.1"
 	},
 	"location": [
-    [# th:each="item, section : ${sections}"]
-        [# th:each="item, itemStat : ${points.get(section.index)}"] {
+        [# th:each="item, itemStat : ${points}"]
+        {
             "coords" : {
                 "accuracy" : 26,
                 "latitude" : "[[${item.place.location.lat}]]",
@@ -24,7 +24,7 @@
             },
             "activity" : {
                 "confidence": 100,
-                "type": "[[${means.get(section.index)}]]"
+                "type": "still]"
             },
             "battery" : {
                 "is_charging": false,
@@ -35,10 +35,9 @@
             "is_moving": true,
             "extras": {
                 "start": "[[${item.time}]]",
-                "idTrip": "[[${tripIds[section.index]}]]",
+                            "idTrip": "[[${item.tripId}]]",
                 "multimodalId": "[[${multimodal}]]"
             }
         }[# th:if="!${itemStat.last}"],[/][/]
-    [# th:if="!${section.last}"],[/][/]
     ]
 }
