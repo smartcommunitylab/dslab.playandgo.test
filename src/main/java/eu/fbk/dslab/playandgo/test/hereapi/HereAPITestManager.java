@@ -44,36 +44,14 @@ public class HereAPITestManager {
     HereAPITemplateManager hereAPITemplateManager;
 
 
-    /**
-     * Sends a track to the PlayAndGo engine with the given mean of transportation, territory, start date of the week,
-     * and flags to assign a survey or invite a player to the campaign.
-     *
-     * @param mean The transportation mean (e.g., "walk", "bike").
-     * @param territory The territory or city for the track data.
-     * @param date The start date of the week in the format "YYYY-MM-DD".
-     * @param assignSurvey Whether to assign a survey to the player.
-     * @param invitePlayer Whether to invite the player to the campaign.
-     */
-    public void sendTrack(String mean, String territory, String date, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack(mean, territory, date, assignSurvey, invitePlayer, false);
+
+    public void sendTrack(String mean, String territory, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
+        sendTrack(mean, territory, date, origin, destination, assignSurvey, invitePlayer, false);
     }
 
-    /**
-     * Sends a track to the PlayAndGo engine.
-     *
-     * @param mean The transportation mean (e.g., "walk", "bike").
-     * @param territory The territory or city for the track data.
-     * @param date The date of the track in "yyyy-MM-dd'T'HH:mm" format.
-     * @param assignSurvey If true, assigns a survey to the player.
-     * @param invitePlayer If true, invites the player to a challenge.
-     * @param polyline If true, processes the track as a polyline.
-     * @throws Exception If there is an error in track processing or file writing.
-     */
     @SuppressWarnings("unused")
-    public void sendTrack(String mean, String territory, String date, boolean assignSurvey, boolean invitePlayer, boolean polyline) throws Exception {
+    public void sendTrack(String mean, String territory, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
 
-        String tripId = mean + "_" + RandomStringUtils.random(12, true, true);
-        String multimodalId = tripId + "_modal";
         String uuid = RandomStringUtils.random(12, true, true);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -93,14 +71,14 @@ public class HereAPITestManager {
             Thread.sleep(1000);
         }
 
-        String track = hereAPITemplateManager.getApiData(mean, date, tripId, multimodalId, territory, polyline);
+        String track = hereAPITemplateManager.getApiData(mean, date, territory, origin, destination);
 
-        if (!polyline) {
-            String filePath = outputDir + "/resultDataTemplate" + mean + ".json";
+        if (multimodal) {
+            String filePath = outputDir + "/resultDataMultimodal" + mean + ".json";
 
             Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-            System.out.println("Track sent");
+            System.out.println("Multimodal Track sent");
         }
         else {
             String filePath = outputDir + "/resultDataPolyline" + mean + ".json";

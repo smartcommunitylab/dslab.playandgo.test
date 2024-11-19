@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +63,7 @@ public class HereAPITemplateManager {
      * @return a list containing the origin and destination points
      * @throws IllegalArgumentException if the territory is null or not supported
      */
-    public List<String> getOriginAndDestination(String territory) throws IllegalArgumentException {
+    /*public List<String> getOriginAndDestination(String territory) throws IllegalArgumentException {
 
         List<String> points = new ArrayList<>();
         String origin = "";
@@ -85,27 +86,13 @@ public class HereAPITemplateManager {
         points.add(destination);
 
         return points;
-    }
+    }*/
 
 
+    public String getApiData(String mean, String date, String territory, String origin, String destination) throws JsonProcessingException, ParseException {
 
-    /**
-     * Retrieves the route data from the Here API and generates a string for sending data to the server.
-     *
-     * @param mean the mean of transport for which to get the route data
-     * @param date the date for which to get the route data
-     * @param tripId the id of the trip
-     * @param multimodalId the id of the multimodal trip
-     * @param territory the territory for which to get the route data
-     * @param polyline whether to use polyline
-     * @return a string to send to the server
-     * @throws JsonProcessingException if there is a problem with the JSON processing
-     * @throws ParseException if there is a problem with the parsing of the date
-     */
-    public String getApiData(String mean, String date, String tripId, String multimodalId, String territory, boolean polyline) throws JsonProcessingException, ParseException {
-
-    	String origin = getOriginAndDestination(territory).get(0);
-    	String destination = getOriginAndDestination(territory).get(1);
+        String tripId = mean + "_" + RandomStringUtils.random(12, true, true);
+        String multimodalId = tripId + "_modal";
 
         HereAPIResponse hereAPIResponse = hereAPIService.fetchRouteData(mean, date, origin, destination);
 
@@ -117,84 +104,45 @@ public class HereAPITemplateManager {
         variables.put("uuid", UUID.randomUUID().toString());
 
         String mode = hereAPIService.getMode(mean);
-        List<HereAPIResponse.TimePoint> points = new ArrayList<>();
-        List<HereAPIResponse.Section> busSections = new ArrayList<>();
-        HereAPIResponse.TimePoint departure;
-        HereAPIResponse.TimePoint arrival;
+        List<HereAPIResponse.TimePoint> points;
+        List<HereAPIResponse.Section> modeSections = new ArrayList<>();
+        String departurePolyline = "";
+        String arrivalPolyline = "";
+        String encodedPolyline = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-
-        //Track Not Polyline
-        if (!polyline) {
-            if (mode.equals("bus")) {
-                for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
-                    for (HereAPIResponse.Section section : route.getSections()) {
-                        if (section.getTransport().getMode().equals(mode)) {
-                            busSections.add(section);
-                        }
-                    }
-                    departure = busSections.get(0).getDeparture();
-                    points.add(departure);
-                    if (busSections.get(0).getIntermediateStops() != null) {
-                        for(HereAPIResponse.IntermediateStop stop : busSections.get(0).getIntermediateStops()) {
-                            points.add(stop.getDeparture());
-                        }
-                    }
-                    arrival = busSections.get(0).getArrival();
-                    points.add(arrival);
-                }
-
-            }
-            else if (mode.equals("pedestrian") || mode.equals("bicycle")) {
-                for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
-                    for (HereAPIResponse.Section section : route.getSections()){
-                        if (section.getTransport().getMode().equals(mode)) {
-                            departure = section.getDeparture();
-                            arrival = section.getArrival();
-                            points.add(departure);
-                            points.add(arrival);
-                        }
-                    }
+        for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
+            for (HereAPIResponse.Section section : route.getSections()) {
+                if (section.getTransport().getMode().equals(mode)) {
+                    modeSections.add(section);
+                    departurePolyline = modeSections.get(0).getDeparture().getTime();
+                    arrivalPolyline = modeSections.get(0).getArrival().getTime();
+                    encodedPolyline = modeSections.get(0).getPolyline();
                 }
 
             }
         }
-        //Polyline
-        else {
-            String departurePolyline = "";
-            String arrivalPolyline = "";
-            String encodedPolyline = "";
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-            for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
-                for (HereAPIResponse.Section section : route.getSections()) {
-                    if (section.getTransport().getMode().equals(mode)) {
-                        busSections.add(section);
-                    }
-                    departurePolyline = busSections.get(0).getDeparture().getTime();
-                    arrivalPolyline = busSections.get(0).getArrival().getTime();
-                    encodedPolyline = busSections.get(0).getPolyline();
+        points = getPolylineLocations(encodedPolyline);
 
-                }
-            }
+        Date startDate = sdf.parse(departurePolyline);
+        Date endDate = sdf.parse(arrivalPolyline);
 
-            points = getPolylineLocations(encodedPolyline);
+        long travelTimeMillis = endDate.getTime() - startDate.getTime();
+        long segmentTime = travelTimeMillis / ((long) points.size() - 1);
+        int segmentTimeInt = (int) (segmentTime);
 
-            Date startDate = sdf.parse(departurePolyline);
-            Date endDate = sdf.parse(arrivalPolyline);
-
-            long travelTimeMillis = endDate.getTime() - startDate.getTime();
-            long segmentTime = travelTimeMillis / ((long) points.size() - 1);
-            int segmentTimeInt = (int) (segmentTime);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(startDate);
-            for(HereAPIResponse.TimePoint point : points) {
-            	point.setTime(String.valueOf(cal.getTime().getTime()));
-                cal.add(Calendar.MILLISECOND, segmentTimeInt);
-            }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        for(HereAPIResponse.TimePoint point : points) {
+            point.setTime(String.valueOf(cal.getTime().getTime()));
+            cal.add(Calendar.MILLISECOND, segmentTimeInt);
         }
+
         variables.put("points", points);
         return getContent("hereapi/send-track-template.txt", variables);
+
+
     }
 
 
