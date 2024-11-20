@@ -10,9 +10,6 @@ import eu.fbk.dslab.playandgo.test.hereapi.HereAPITestManager;
 @RestController
 public class ApiController {
 	@Autowired
-	TestManager testManager;
-	
-	@Autowired
 	HereAPITestManager hereTestManager;
 
 	@GetMapping("/api/test/track/send")
@@ -27,8 +24,4 @@ public class ApiController {
 		hereTestManager.sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, multimodal);
 	}
 	
-	@GetMapping("/api/test/track/multimodal")
-	public void createMultimodalTrip(@RequestParam String date) throws Exception {
-		testManager.writeMultimodalTrack(date);
-	}
 }

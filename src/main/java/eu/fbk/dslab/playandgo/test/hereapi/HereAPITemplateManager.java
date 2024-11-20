@@ -105,8 +105,8 @@ public class HereAPITemplateManager {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-        for (HereAPIResponse.Route route : hereAPIResponse.getRoutes()) {
-            for (HereAPIResponse.Section section : route.getSections()) {
+        if (!hereAPIResponse.getRoutes().isEmpty()) {
+            for (HereAPIResponse.Section section : hereAPIResponse.getRoutes().get(0).getSections()) {
                 if (!multimodal && !mode.contains(section.getTransport().getMode()))
                 	continue;
             	
