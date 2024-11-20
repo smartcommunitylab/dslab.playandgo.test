@@ -43,7 +43,7 @@ public class HereAPIService {
      */
     public String getMode(String mean) {
 
-        String mode;
+        String mode = "";
         if(StringUtils.isNotEmpty(mean)) {
             switch (mean) {
                 case "walk":
@@ -59,13 +59,9 @@ public class HereAPIService {
                     mode = "highSpeedTrain,intercityTrain,interRegionalTrain,regionalTrain,cityTrain";
                     break;
                 default:
-                    throw new IllegalArgumentException("mean not supported");
+                    break;
             }
         }
-        else {
-            throw new IllegalArgumentException("mean cannot be null");
-        }
-
         return mode;
     }
 
