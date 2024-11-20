@@ -44,9 +44,20 @@ public class HereAPITestManager {
     HereAPITemplateManager hereAPITemplateManager;
 
 
-
+    //Polyline: If multimodal is not declared, it is set to false
     public void sendTrack(String mean, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
         sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, false);
+    }
+
+    //Polyline: if multimodal is not declared, it is set to false and if mean is not declared, it is set to ""
+    //This will give an error since mean must be declared if multimodal is false
+    public void sendTrack(String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
+        sendTrack("", date, origin, destination, assignSurvey, invitePlayer);
+    }
+
+    //Multimodal: if mean is not declared, it is set to "" when multimodal is declared
+    public void sendTrack(String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
+        sendTrack("", date, origin, destination, assignSurvey, invitePlayer, multimodal);
     }
 
     @SuppressWarnings("unused")
@@ -75,13 +86,12 @@ public class HereAPITestManager {
 
         if (multimodal) {
             String filePath = outputDir + "/resultDataMultimodal" + mean + ".json";
-
             Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
             System.out.println("Multimodal Track sent");
         }
         else {
-            String filePath = outputDir + "/resultDataPolyline2" + mean + ".json";
+            String filePath = outputDir + "/resultDataPolyline" + mean + ".json";
 
             Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 

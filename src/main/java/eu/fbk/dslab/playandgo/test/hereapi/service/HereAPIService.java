@@ -78,13 +78,19 @@ public class HereAPIService {
      * @return the URL to be used to fetch the route data
      */
     public String getUrl(String mode, String origin, String destination, String departureTime, String mean) {
-        String url = "";
+        String url;
         if (mode.equals("pedestrian") || mode.equals("bicycle")) {
             url = hereRouteApiUrl + "?apiKey=" + hereApiKey
                     + "&origin=" + origin + "&destination=" + destination
                     + "&departureTime=" + departureTime
                     + "&transportMode=" + mode
                     + "&return=polyline";
+        }
+        else if (mode.isEmpty()) {
+            url = hereTransitApiUrl + "?apiKey=" + hereApiKey
+                    + "&origin=" + origin + "&destination=" + destination
+                    + "&departureTime=" + departureTime
+                    + "&return=polyline,intermediate";
         }
         else  {
             url = hereTransitApiUrl + "?apiKey=" + hereApiKey
