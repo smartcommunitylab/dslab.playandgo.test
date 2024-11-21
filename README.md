@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 <br />
 <div align="center">
-<h1>PlayAndGo</h1>
+<h1>dslab.playandgo.test</h1>
 <h2>Track Verification Test</h2>
 <i>with Here API</i>
 
