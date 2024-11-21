@@ -29,11 +29,11 @@ import eu.fbk.dslab.playandgo.test.hereapi.service.HereAPIService;
 @Component
 public class HereAPITemplateManager {
 
-    @Value("${originTrento:}")
+    /*@Value("${originTrento:}")
     private String originTrento;
 
     @Value("${destinationTrento:}")
-    private String destinationTrento;
+    private String destinationTrento;*/
 
 
     @Autowired

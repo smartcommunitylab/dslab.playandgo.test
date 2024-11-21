@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 @Service
 public class HereAPIService {
 
-    @Value("${outputDir}")
-    String outputDir;
-
     @Value("${hereTransitApiUrl}")
     String hereTransitApiUrl;
 
