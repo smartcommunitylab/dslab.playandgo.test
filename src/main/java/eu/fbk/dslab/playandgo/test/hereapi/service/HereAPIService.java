@@ -52,6 +52,9 @@ public class HereAPIService {
                 case "bus":
                     mode = "bus";
                     break;
+                case "car":
+                    mode = "car";
+                    break;
                 case "train":
                     mode = "highSpeedTrain,intercityTrain,interRegionalTrain,regionalTrain,cityTrain";
                     break;
@@ -76,7 +79,7 @@ public class HereAPIService {
      */
     public String getUrl(String mode, String origin, String destination, String departureTime, String mean) {
         String url;
-        if (mode.equals("pedestrian") || mode.equals("bicycle")) {
+        if (mode.equals("pedestrian") || mode.equals("bicycle") || mode.equals("car")) {
             url = hereRouteApiUrl + "?apiKey=" + hereApiKey
                     + "&origin=" + origin + "&destination=" + destination
                     + "&departureTime=" + departureTime

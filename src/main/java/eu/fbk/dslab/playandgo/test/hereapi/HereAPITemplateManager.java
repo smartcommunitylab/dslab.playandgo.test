@@ -190,6 +190,9 @@ public class HereAPITemplateManager {
                 case "bus":
                     mean = "bus";
                     break;
+                case "car":
+                    mean = "car";
+                    break;
                 default:
                     if (trainModes.contains(mode)) {
                         mean = "train";

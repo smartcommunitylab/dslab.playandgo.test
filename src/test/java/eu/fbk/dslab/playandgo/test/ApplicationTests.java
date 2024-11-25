@@ -20,11 +20,10 @@ class ApplicationTests {
 	@Test
 	public void sendPolyline() throws Exception {
 		hereAPITestManager.sendTrack("bus", departureTime, origin, destination, false , false);
-
 	}
 	@Test
 	public void sendMultimodal() throws Exception {
-		hereAPITestManager.sendTrack("bus", departureTime, origin, destination, false , false, true);
+		hereAPITestManager.sendTrack("car",departureTime, origin, destination, false , false, true);
 
 	}
     
