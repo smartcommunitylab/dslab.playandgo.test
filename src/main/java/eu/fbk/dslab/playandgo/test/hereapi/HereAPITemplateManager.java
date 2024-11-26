@@ -56,8 +56,6 @@ public class HereAPITemplateManager {
         return templateEngine.process(template, ctx);
     }
 
-
-
     /**
      * Retrieves the origin and destination points for the specified territory.
      *
@@ -206,6 +204,19 @@ public class HereAPITemplateManager {
         }
 
         return mean;
+    }
+
+    public String getAssignSurvey(Long startWeek, Long endWeek) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("fromDate", startWeek);
+        variables.put("toDate", endWeek);
+        return getContent("assign-survey.txt", variables);
+    }
+
+    public String getChallengeInvite(String playerId) {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("playerId", playerId);
+        return getContent("challenge-invite.txt", variables);
     }
 
 

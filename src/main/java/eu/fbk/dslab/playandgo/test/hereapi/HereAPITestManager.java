@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
-import eu.fbk.dslab.playandgo.test.TemplateManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,71 +15,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HereAPITestManager {
-    @Value("${startWeek}")
-    String startWeek;
-
-    @Value("${endWeek}")
-    String endWeek;
-
-    @Value("${playerToInvite}")
-    String playerToInvite;
-
-    @Value("${playerId}")
-    String playerId;
-
-    @Value("${campaignId}")
-    String campaignId;
-
     @Value("${outputDir}")
     String outputDir;
 
     @Autowired
-    TemplateManager templateManager;
+    HereAPITemplateManager hereAPITemplateManager;
 
     @Autowired
     PlayAndGoEngine playAndGoEngine;
 
-    @Autowired
-    HereAPITemplateManager hereAPITemplateManager;
-
 
     //Polyline: If multimodal is not declared, it is set to false
-    public void sendTrack(String mean, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, false);
-    }
-
-    //Polyline: if multimodal is not declared, it is set to false and if mean is not declared, it is set to ""
-    //This will give an error since mean must be declared if multimodal is false
-    public void sendTrack(String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer) throws Exception {
-        sendTrack("", date, origin, destination, assignSurvey, invitePlayer);
+    public void sendTrack(String mean, String date, String origin, String destination) throws Exception {
+        sendTrack(mean, date, origin, destination, false);
     }
 
     //Multimodal: if mean is not declared, it is set to "" when multimodal is declared
-    public void sendTrack(String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
-        sendTrack("", date, origin, destination, assignSurvey, invitePlayer, multimodal);
+    public void sendTrack(String date, String origin, String destination, boolean multimodal) throws Exception {
+        sendTrack("", date, origin, destination, multimodal);
     }
 
     @SuppressWarnings("unused")
-    public void sendTrack(String mean, String date, String origin, String destination, boolean assignSurvey, boolean invitePlayer, boolean multimodal) throws Exception {
+    public void sendTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
 
         String uuid = RandomStringUtils.random(12, true, true);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-        Date startDate = sdf.parse(startWeek);
-        Date endDate = sdf.parse(endWeek);
-
-        if(assignSurvey) {
-            String assignSurveyJson = templateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
-            playAndGoEngine.assignSurvey(playerId, campaignId, assignSurveyJson);
-            Thread.sleep(1000);
-        }
-
-        if(invitePlayer) {
-            String challengeInviteJson = templateManager.getChallengeInvite(playerToInvite);
-            playAndGoEngine.challengeInvite(campaignId, challengeInviteJson);
-            Thread.sleep(1000);
-        }
 
         String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
 
@@ -101,7 +59,24 @@ public class HereAPITestManager {
         playAndGoEngine.sendTrack(track);
     }
 
+    public void assignSurvey(String startWeek, String endWeek, String playerId, String campaignId) throws Exception {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        Date startDate = sdf.parse(startWeek);
+        Date endDate = sdf.parse(endWeek);
+
+        String assignSurveyJson = hereAPITemplateManager.getAssignSurvey(startDate.getTime(), endDate.getTime());
+        playAndGoEngine.assignSurvey(playerId, campaignId, assignSurveyJson);
+
+    }
+
+    public void invitePlayer(String playerToInvite, String campaignId) throws Exception {
+
+        String challengeInviteJson = hereAPITemplateManager.getChallengeInvite(playerToInvite);
+        playAndGoEngine.challengeInvite(campaignId, challengeInviteJson);
+
+    }
 
 }
 

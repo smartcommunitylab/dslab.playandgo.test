@@ -19,11 +19,11 @@ class ApplicationTests {
 	String destination = "46.0342,11.1314";
 	@Test
 	public void sendPolyline() throws Exception {
-		hereAPITestManager.sendTrack("bus", departureTime, origin, destination, false , false);
+		hereAPITestManager.sendTrack("bus", departureTime, origin, destination);
 	}
 	@Test
 	public void sendMultimodal() throws Exception {
-		hereAPITestManager.sendTrack("car",departureTime, origin, destination, false , false, true);
+		hereAPITestManager.sendTrack("car",departureTime, origin, destination, true);
 
 	}
     

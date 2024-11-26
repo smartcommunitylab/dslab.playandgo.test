@@ -26,16 +26,17 @@ It processes this data into a predefined template with Thymeleaf and enables ver
 <a id="environment-variables"></a>
 ## Environment Variables
 
-**Warning: ALL Environment Variables are mandatory.**
+> [!WARNING]
+> **ALL Environment Variables are mandatory.**
     
 - **API_ENDPOINT**
   - The apiEndpoint variable represents the base URL for the API of the PlayAndGoEngine.
   - **Example:** https://.../playandgo/api (localhost or direct playandgo api endpoint)
 
 
-- **CAMPAIGN_ID:**
+<!-- - **CAMPAIGN_ID:**
   - Variable used by the PlayAndGoEngine to assign a survey and/or to send a challenge invitation, of a specific campaign, to a player.
-  - **Temporary Value:** TAA.city
+  - **Temporary Value:** TAA.city -->
 
 
 - **DEPARTURE_TIME:**
@@ -44,10 +45,10 @@ It processes this data into a predefined template with Thymeleaf and enables ver
   - **Example:** 2024-11-11T00:00:00
 
 
-- **END_WEEK:**
+<!-- - **END_WEEK:**
   - End Date and Time used by the TemplateManager to set the ending date of the survey in the template.</br>
   **Attention!** Be sure to use the right format: "yyyy-MM-dd'T'HH:mm:ss"
-  - **Example:** 2024-11-15T00:00:00
+  - **Example:** 2024-11-15T00:00:00 -->
 
     
 - **HERE_API_KEY:**
@@ -73,7 +74,7 @@ It processes this data into a predefined template with Thymeleaf and enables ver
     - **Example for Linux:** /home/username/Documents/testResults
 
 
-- **PLAYER_ID:**
+<!-- - **PLAYER_ID:**
     - Variable used by the PlayAndGoEngine to assign a survey to a specific player.
     - **Temporary Value:** u_fe939cab-1638-45b3-a604-80a3fb018e54
   
@@ -86,7 +87,7 @@ It processes this data into a predefined template with Thymeleaf and enables ver
 - **START_WEEK:**
   - Start Date and Time used by the TemplateManager to set the starting date of the survey in the template.</br>
   Attention! Be sure to use the right format: "yyyy-MM-dd'T'HH:mm:ss"
-  - **Example:** 2024-11-11T00:00:00
+  - **Example:** 2024-11-11T00:00:00 -->
 
 
 - **TOKEN:**
@@ -103,8 +104,9 @@ HERE API is a suite of location-based services provided by HERE Technologies, a 
 1. [Get an API Key](https://www.here.com/docs/bundle/identity-and-access-management-developer-guide/page/topics/plat-using-apikeys.html)
 2. [Manage a Project](https://www.here.com/docs/bundle/identity-and-access-management-developer-guide/page/topics/manage-projects.html)
 3. [Add a Service to a Project](https://www.here.com/docs/bundle/identity-and-access-management-developer-guide/page/topics/manage-projects.html#services)
-    
-If you want to use <u>your own</u> HERE Api for this App, you <b>MUST</b> add the following <u>Services</u> to your Project:
+
+> [!NOTE]    
+> If you want to use <u>your own</u> HERE Api for this App, you <b>MUST</b> add the following <u>Services</u> to your Project:
 1. HERE Routing v8
 2. HERE Routing - Transit v8
 
@@ -114,8 +116,9 @@ If you want to use <u>your own</u> HERE Api for this App, you <b>MUST</b> add th
 
 <a id="here-api-reference"></a>
 ### Here API Reference:
-The API references below are provided just to have a better understanding of how HERE API works.<br>
-You will not need to know it perfectly to use this application since the test will automatically change the APIs parameters based on the initial request.
+> [!NOTE]
+>The API references below are provided just to have a better understanding of how HERE API works.<br>
+>You will not need to know it perfectly to use this application since the test will automatically change the APIs parameters based on the initial request.
 
 - [Routing API Documentation](https://www.here.com/docs/bundle/routing-api-v8-api-reference/page/index.html)
 - [Public Transit API Documentation](https://www.here.com/docs/bundle/public-transit-api-developer-guide/page/routing/README.html)

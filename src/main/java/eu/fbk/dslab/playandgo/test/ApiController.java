@@ -19,39 +19,48 @@ public class ApiController {
 	@GetMapping("/api/test/track/send")
 	public ResponseEntity<String> sendTrack(
 			@Parameter(description = "Starting Date and Time of the track.", example = "2024-11-20T13:00:00")
-				@RequestParam(value = "date") String date,
+				@RequestParam String date,
 			@Parameter(description = "Latitude and Longitude of the origin point.", example="46.0659,11.1545")
-				@RequestParam(value = "origin") String origin,
+				@RequestParam String origin,
 			@Parameter(description = "Latitude and Longitude of the destination point.", example = "46.0342,11.1314")
-				@RequestParam(value = "destination") String destination,
+				@RequestParam String destination,
 			@Parameter(description = "Transport Mode. Possible values: walk, bike, car, train, bus or empty(any transport mode).")
-				@RequestParam(value = "mean", required = false) String mean,
-			@Parameter(description = "Assign user to Survey. Use false.")
-				@RequestParam(value = "assignSurvey", required = false) boolean assignSurvey,
-			@Parameter(description = "Invite player to challenge. Use false.")
-				@RequestParam(value = "invitePlayer", required = false) boolean invitePlayer,
+				@RequestParam(required = false) String mean,
 			@Parameter(description = "Multimodal (multimodal = true) or Polyline of the first section (multimodal=false)")
-				@RequestParam(value = "multimodal", required = false) boolean multimodal
+				@RequestParam(required = false) boolean multimodal
 	) throws Exception {
 		if(!multimodal) {
 			if(StringUtils.isEmpty(mean)) {
 				 return new ResponseEntity<>("mean is required", HttpStatus.BAD_REQUEST);
 			}
 		}
-		hereTestManager.sendTrack(mean, date, origin, destination, assignSurvey, invitePlayer, multimodal);
+		hereTestManager.sendTrack(mean, date, origin, destination, multimodal);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/api/test/survey/assign")
 	public ResponseEntity<String> assignSurvey(
-			@Parameter(description = "Starting Date of the survey.", example = "2024-11-20T13:00:00") @RequestParam String startDate,
-			@Parameter(description = "End Date of the survey.", example = "2024-11-20T13:00:00") @RequestParam String endDate,
-			@RequestParam String playerId,
-			@RequestParam String campaignId) {
-		
+			@Parameter(description = "Starting Date of the survey.", example = "2024-10-25T01:00:00")
+				@RequestParam String startDate,
+			@Parameter(description = "End Date of the survey.", example = "2024-10-31T00:00:00")
+				@RequestParam String endDate,
+			@Parameter(description = "Player Id to assign the survey to.", example = "u_fe939cab-1638-45b3-a604-80a3fb018e54")
+				@RequestParam String playerId,
+			@Parameter(description = "Campaign Id", example = "TAA.city")
+				@RequestParam String campaignId
+	) throws Exception {
+		hereTestManager.assignSurvey(startDate, endDate, playerId, campaignId);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
-	
-	public ResponseEntity<String> invitePlayer() {
+
+	@GetMapping("/api/test/challenge/invitation")
+	public ResponseEntity<String> invitePlayer(
+			@Parameter(description = "Player Id to invite.", example = "u_11111")
+				@RequestParam String playerToInvite,
+			@Parameter(description = "Campaign Id", example = "TAA.city")
+				@RequestParam String campaignId
+	) throws Exception {
+		hereTestManager.invitePlayer(playerToInvite, campaignId);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 	
