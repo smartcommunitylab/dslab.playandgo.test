@@ -30,13 +30,11 @@ public class HereAPIService {
     }
 
 
+
     /**
-     * Converts a mean of transportation from a string representation to a representation
-     * recognized by the Here API.
-     *
-     * @param mean the mean of transportation (either "walk", "bike", or "bus")
-     * @return a string representation of the mean of transportation recognized by the Here API
-     * @throws IllegalArgumentException if mean is null or not supported
+     * Translates a mean of transportation (e.g. walk, bike, car, train, bus) into a mode that can be used in the HERE API.
+     * @param mean the mean of transportation
+     * @return the equivalent mode for HERE API
      */
     public String getMode(String mean) {
 
@@ -65,17 +63,14 @@ public class HereAPIService {
         return mode;
     }
 
-
-
     /**
-     * Constructs a URL for the Here API to fetch route data.
-     *
-     * @param mode the mode of transportation (either "bus", "pedestrian", or "bicycle")
-     * @param origin the origin point
-     * @param destination the destination point
-     * @param departureTime the departure time
-     * @param mean the mean of transportation (either "walk", "bike", or "bus")
-     * @return the URL to be used to fetch the route data
+     * Given a mode of transportation, origin, destination, departure time, and mean, build the corresponding HERE API URL
+     * @param mode the mode of transportation
+     * @param origin the origin of the route
+     * @param destination the destination of the route
+     * @param departureTime the departure time of the route
+     * @param mean the mean of transportation
+     * @return the URL of the HERE API request
      */
     public String getUrl(String mode, String origin, String destination, String departureTime, String mean) {
         String url;

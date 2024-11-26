@@ -58,7 +58,7 @@ It processes this data into a predefined template with Thymeleaf and enables ver
 
 - **HERE_ROUTE_API_URL:**
   - This is the base URL for the [HERE Routing API](#here-api-reference).</br>
-  It is used to create a route between two points only if the transport mode is walk or bike.
+  It is used to create a route between two points only if the transport mode is walk, bike or car.
   - **Value:** https://router.hereapi.com/v8/routes
 
 
