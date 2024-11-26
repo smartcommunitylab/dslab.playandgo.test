@@ -1,16 +1,13 @@
 package eu.fbk.dslab.playandgo.test.hereapi;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
 
 
 @Component
@@ -35,30 +32,16 @@ public class HereAPITestManager {
         sendTrack("", date, origin, destination, multimodal);
     }
 
-    @SuppressWarnings("unused")
     public void sendTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
-
-        String uuid = RandomStringUtils.random(12, true, true);
-
         String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
-
-        if (multimodal) {
-            String filePath = outputDir + "/resultDataMultimodal" + mean + ".json";
-            Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-
-            System.out.println("Multimodal Track sent");
-        }
-        else {
-            String filePath = outputDir + "/resultDataPolyline" + mean + ".json";
-
-            Files.write(Paths.get(filePath), track.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-
-            System.out.println("Polyline Track Sent");
-        }
-
         playAndGoEngine.sendTrack(track);
     }
 
+    public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
+        String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
+        return track;
+    }
+    
     public void assignSurvey(String startWeek, String endWeek, String playerId, String campaignId) throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
