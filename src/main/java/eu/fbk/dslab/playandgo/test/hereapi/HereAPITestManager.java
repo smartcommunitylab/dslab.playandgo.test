@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
@@ -12,9 +11,6 @@ import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
 
 @Component
 public class HereAPITestManager {
-    @Value("${outputDir}")
-    String outputDir;
-
     @Autowired
     HereAPITemplateManager hereAPITemplateManager;
 
