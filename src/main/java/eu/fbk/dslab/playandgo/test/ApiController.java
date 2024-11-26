@@ -42,4 +42,17 @@ public class ApiController {
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 	
+	public ResponseEntity<String> assignSurvey(
+			@Parameter(description = "Starting Date of the survey.", example = "2024-11-20T13:00:00") @RequestParam String startDate,
+			@Parameter(description = "End Date of the survey.", example = "2024-11-20T13:00:00") @RequestParam String endDate,
+			@RequestParam String playerId,
+			@RequestParam String campaignId) {
+		
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+	
+	public ResponseEntity<String> invitePlayer() {
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+	
 }
