@@ -69,12 +69,12 @@ It processes this data into a predefined template with Thymeleaf and enables ver
     - **Value:** https://transit.router.hereapi.com/v8/routes
 
 
-- **OUTPUT_DIR:**
+<!-- - **OUTPUT_DIR:**
     - Personal output directory to where the final templates will be saved before sending them to the Backend of PlayAndGo for the verification of the track.
     - **Example for Linux:** /home/username/Documents/testResults
 
 
-<!-- - **PLAYER_ID:**
+ - **PLAYER_ID:**
     - Variable used by the PlayAndGoEngine to assign a survey to a specific player.
     - **Temporary Value:** u_fe939cab-1638-45b3-a604-80a3fb018e54
   
