@@ -55,14 +55,16 @@ public class ApiController {
 			@Parameter(description = "Transport Mode. Possible values: walk, bike, car, train, bus or empty(any transport mode).")
 				@RequestParam(required = false) String mean,
 			@Parameter(description = "Multimodal (multimodal = true) or Polyline of the first section (multimodal=false)")
-				@RequestParam(required = false) boolean multimodal
+				@RequestParam(required = false) boolean multimodal,
+			@Parameter(description = "InvalidTrack. Used to make a track that will not be valid for PlayAndGoEngine")
+				@RequestParam(required = false) boolean invalidTrack
 	) throws Exception {
 		if(!multimodal) {
 			if(StringUtils.isEmpty(mean)) {
 				 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
 		}
-		String track = hereTestManager.downloadTrack(mean, date, origin, destination, multimodal);
+		String track = hereTestManager.downloadTrack(mean, date, origin, destination, multimodal, invalidTrack);
 		byte[] content = track.toString().getBytes();
 		InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(content));
 		String filename = StringUtils.isEmpty(mean) ?  "track.json" : "track_" + mean + ".json";

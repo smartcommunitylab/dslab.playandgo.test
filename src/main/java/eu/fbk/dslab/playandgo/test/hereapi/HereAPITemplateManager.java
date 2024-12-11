@@ -88,7 +88,7 @@ public class HereAPITemplateManager {
     }*/
 
 
-    public String getApiData(String mean, String date, String origin, String destination, boolean multimodal) throws JsonProcessingException, ParseException {
+    public String getApiData(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws JsonProcessingException, ParseException {
 
         String multimodalId = RandomStringUtils.random(12, true, true) + "_modal";
 
@@ -114,6 +114,9 @@ public class HereAPITemplateManager {
                 Date startDate = sdf.parse(section.getDeparture().getTime());
                 Date endDate = sdf.parse(section.getArrival().getTime());
                 long travelTimeMillis = endDate.getTime() - startDate.getTime();
+                if (invalidTrack) {
+                    travelTimeMillis = travelTimeMillis / 20;
+                }
                 long segmentTime = travelTimeMillis / ((long) sectionPoints.size() - 1);
                 int segmentTimeInt = (int) (segmentTime);
 

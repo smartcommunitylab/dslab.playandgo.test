@@ -20,22 +20,35 @@ public class HereAPITestManager {
 
     //Polyline: If multimodal is not declared, it is set to false
     public void sendTrack(String mean, String date, String origin, String destination) throws Exception {
-        sendTrack(mean, date, origin, destination, false);
+        sendTrack(mean, date, origin, destination, false, false);
     }
 
     //Multimodal: if mean is not declared, it is set to "" when multimodal is declared
     public void sendTrack(String date, String origin, String destination, boolean multimodal) throws Exception {
-        sendTrack("", date, origin, destination, multimodal);
+        sendTrack("", date, origin, destination, multimodal, false);
     }
 
+    //If invalidTrack is not declared, it is set to false
     public void sendTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
-        String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
+        sendTrack(mean, date, origin, destination, multimodal, false);
+    }
+
+    //If invalidTrack is not declared, it is set to false
+    public void downloadTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
+        downloadTrack(mean, date, origin, destination, multimodal, false);
+    }
+
+
+
+    //Main Function Send Track
+    public void sendTrack(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws Exception {
+        String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
         playAndGoEngine.sendTrack(track);
     }
 
-    public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
-        String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal);
-        return track;
+    //Main Function Download Track
+    public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws Exception {
+        return hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
     }
     
     public void assignSurvey(String startWeek, String endWeek, String playerId, String campaignId) throws Exception {
