@@ -27,7 +27,7 @@ It processes this data into a predefined template with Thymeleaf and enables ver
 ## Environment Variables
 
 > [!WARNING]
-> **ALL Environment Variables are mandatory.**
+> **Environment Variables are mandatory.**
     
 - **API_ENDPOINT**
   - The apiEndpoint variable represents the base URL for the API of the PlayAndGoEngine.
@@ -89,6 +89,9 @@ It processes this data into a predefined template with Thymeleaf and enables ver
   Attention! Be sure to use the right format: "yyyy-MM-dd'T'HH:mm:ss"
   - **Example:** 2024-11-11T00:00:00 -->
 
+> [!WARNING]
+> This variable is mandatory **ONLY if you wanna send the track directly to PlayAndGoEngine.** (playAndGoEngine.sendTrack(track); in the code) </br>
+> <ins>If you wanna just create a json file, this token IS NOT USED.</ins>
 
 - **TOKEN:**
     - Authentication Token of AAC to access the Backend of PlayAndGo.
