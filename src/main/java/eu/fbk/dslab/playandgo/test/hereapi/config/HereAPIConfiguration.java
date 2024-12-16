@@ -14,6 +14,12 @@ import io.swagger.v3.oas.models.info.License;
 @Configuration
 public class HereAPIConfiguration {
 
+    /**
+     * Configures and returns an OpenAPI bean that provides metadata
+     * for the Play&Go Test Project API documentation.
+     *
+     * @return an OpenAPI object containing API information and external documentation.
+     */
     @Bean
     public OpenAPI springOpenAPI() {
         return new OpenAPI()

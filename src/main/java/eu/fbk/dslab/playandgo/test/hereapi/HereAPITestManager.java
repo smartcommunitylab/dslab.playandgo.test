@@ -33,13 +33,22 @@ public class HereAPITestManager {
         sendTrack(mean, date, origin, destination, multimodal, false);
     }
 
+    //Polyline: If multimodal is not declared, it is set to false
+    public String downloadTrack(String mean, String date, String origin, String destination) throws Exception {
+        return downloadTrack(mean, date, origin, destination, false, false);
+    }
+    
+    //Multimodal: if mean is not declared, it is set to "" when multimodal is declared
+    public String downloadTrack(String date, String origin, String destination, boolean multimodal) throws Exception {
+        return downloadTrack("", date, origin, destination, multimodal, false);
+    }
+    
     //If invalidTrack is not declared, it is set to false
-    public void downloadTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
-        downloadTrack(mean, date, origin, destination, multimodal, false);
+    public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal) throws Exception {
+        return downloadTrack(mean, date, origin, destination, multimodal, false);
     }
 
-
-
+    //Main Send and Download Track
     //Main Function Send Track
     public void sendTrack(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws Exception {
         String track = hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
@@ -50,7 +59,8 @@ public class HereAPITestManager {
     public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws Exception {
         return hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
     }
-    
+
+    //Assign Survey
     public void assignSurvey(String startWeek, String endWeek, String playerId, String campaignId) throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -63,6 +73,8 @@ public class HereAPITestManager {
 
     }
 
+
+    //Invite Player
     public void invitePlayer(String playerToInvite, String campaignId) throws Exception {
 
         String challengeInviteJson = hereAPITemplateManager.getChallengeInvite(playerToInvite);

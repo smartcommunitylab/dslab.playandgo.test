@@ -88,6 +88,21 @@ public class HereAPITemplateManager {
     }*/
 
 
+    /**
+     * Given a mean of transportation, a date, an origin, a destination, a multimodal flag and an invalid track flag,
+     * this method fetches the route data from the HERE API and processes it to return a JSON object containing the
+     * coordinates of the track points.
+     *
+     * @param mean the mean of transportation (e.g. walk, bike, car, train, bus)
+     * @param date the departure date for the route
+     * @param origin the starting point of the route
+     * @param destination the ending point of the route
+     * @param multimodal if true, all the transport modes are included in the route
+     * @param invalidTrack if true, the travel time is divided by 20
+     * @return a JSON object containing the coordinates of the track points
+     * @throws JsonProcessingException if there is an error processing the JSON response
+     * @throws ParseException if there is an error parsing the date
+     */
     public String getApiData(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws JsonProcessingException, ParseException {
 
         String multimodalId = RandomStringUtils.random(12, true, true) + "_modal";
@@ -141,14 +156,14 @@ public class HereAPITemplateManager {
 
     }
 
-
-
-/**
- * Decodes an encoded polyline string into a list of Location objects.
- *
- * @param encodedPolyline the URL-safe encoded polyline string representing a series of geographical coordinates
- * @return a list of Location objects, each containing latitude and longitude coordinates derived from the decoded polyline
- */
+    /**
+     * Decodes an encoded polyline string and converts it into a list of TimePoint objects.
+     * Each TimePoint object contains a Place, which holds the latitude and longitude
+     * extracted from the decoded polyline coordinates.
+     *
+     * @param encodedPolyline the encoded polyline string representing a sequence of geographical points
+     * @return a list of TimePoint objects with their associated Place and Location data
+     */
     public List<HereAPIResponse.TimePoint> getPolylineLocations(String encodedPolyline) {
 
         List<PolylineEncoderDecoder.LatLngZ> coordinates = PolylineEncoderDecoder.decode(encodedPolyline);
