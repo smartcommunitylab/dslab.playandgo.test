@@ -92,9 +92,13 @@ public class ApiController {
 		@Parameter(description = "Multimodal (multimodal = true) or Polyline of the first section (multimodal=false)")
 			@RequestParam(required = false) boolean multimodal,
 		@Parameter(description = "Numbers of interations")
-			@RequestParam int iterations
+			@RequestParam int iterations,
+	@Parameter(description = "Interval bwtween iterations in ms (> 100)")
+		@RequestParam long interval 			
 	) throws Exception {
-		hereTestManager.sendBulk(mean, date, origin, destination, multimodal, iterations);
+		if(interval < 100)
+			interval = 100L;
+		hereTestManager.sendBulk(mean, date, origin, destination, multimodal, iterations, interval);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 	

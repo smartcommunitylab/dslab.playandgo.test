@@ -61,12 +61,12 @@ public class HereAPITestManager {
         return hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
     }
     
-    public void sendBulk(String mean, String date, String origin, String destination, boolean multimodal, int iterations) throws Exception {
+    public void sendBulk(String mean, String date, String origin, String destination, boolean multimodal, int iterations, long interval) throws Exception {
     	HereAPIResponse apiRowData = hereAPITemplateManager.getApiRowData(mean, date, origin, destination);
     	for (int i = 0; i < iterations; i++) {
     		String track = hereAPITemplateManager.createJson(apiRowData, mean, date, multimodal);
     		playAndGoEngine.sendTrack(track);
-    		Thread.sleep(1000);
+    		Thread.sleep(interval);
 		}
     }
 
