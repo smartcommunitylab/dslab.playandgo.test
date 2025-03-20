@@ -79,6 +79,25 @@ public class ApiController {
 	            .body(resource);		
 	}
 	
+	@GetMapping("/api/test/track/bulk")
+	public ResponseEntity<String> sendTrackBulk(
+		@Parameter(description = "Starting Date and Time of the track.", example = "2024-11-20T13:00:00")
+			@RequestParam String date,
+		@Parameter(description = "Latitude and Longitude of the origin point.", example="46.0659,11.1545")
+			@RequestParam String origin,
+		@Parameter(description = "Latitude and Longitude of the destination point.", example = "46.0342,11.1314")
+			@RequestParam String destination,
+		@Parameter(description = "Transport Mode. Possible values: walk, bike, car, train, bus or empty(any transport mode).")
+			@RequestParam(required = false) String mean,
+		@Parameter(description = "Multimodal (multimodal = true) or Polyline of the first section (multimodal=false)")
+			@RequestParam(required = false) boolean multimodal,
+		@Parameter(description = "Numbers of interations")
+			@RequestParam int iterations
+	) throws Exception {
+		hereTestManager.sendBulk(mean, date, origin, destination, multimodal, iterations);
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+	
 	@GetMapping("/api/test/survey/assign")
 	public ResponseEntity<String> assignSurvey(
 			@Parameter(description = "Starting Date of the survey.", example = "2024-10-25T01:00:00")

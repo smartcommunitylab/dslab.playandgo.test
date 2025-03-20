@@ -155,6 +155,53 @@ public class HereAPITemplateManager {
 
 
     }
+    
+    public HereAPIResponse getApiRowData(String mean, String date, String origin, String destination) throws JsonProcessingException {
+    	return hereAPIService.fetchRouteData(mean, date, origin, destination);
+    }
+    
+    public String createJson(HereAPIResponse hereAPIResponse, String mean, String date, boolean multimodal) throws ParseException {
+    	String multimodalId = RandomStringUtils.random(16, true, true) + "_modal";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("uuid", UUID.randomUUID().toString());
+
+        String mode = hereAPIService.getMode(mean);
+        List<HereAPIResponse.TimePoint> points = new ArrayList<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        if (!hereAPIResponse.getRoutes().isEmpty()) {
+            for (HereAPIResponse.Section section : hereAPIResponse.getRoutes().get(0).getSections()) {
+                if (!multimodal && !mode.contains(section.getTransport().getMode()))
+                	continue;
+            	
+            	String tripId = convertToMean(section.getTransport().getMode()) + "_" + RandomStringUtils.random(16, true, true);
+            	
+            	List<TimePoint> sectionPoints = getPolylineLocations(section.getPolyline());
+            	
+                Date startDate = sdf.parse(section.getDeparture().getTime());
+                Date endDate = sdf.parse(section.getArrival().getTime());
+                long travelTimeMillis = endDate.getTime() - startDate.getTime();
+                long segmentTime = travelTimeMillis / ((long) sectionPoints.size() - 1);
+                int segmentTimeInt = (int) (segmentTime);
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(startDate);
+                for(HereAPIResponse.TimePoint point : sectionPoints) {
+                    point.setTime(String.valueOf(cal.getTime().getTime()));
+                    point.setTripId(tripId);
+                    cal.add(Calendar.MILLISECOND, segmentTimeInt);
+                }
+                points.addAll(sectionPoints);
+                
+                if (!multimodal && mode.contains(section.getTransport().getMode()))
+                	break;
+            }
+        }        
+        variables.put("multimodal", multimodalId);
+        variables.put("points", points);
+        return getContent("hereapi/send-track-template.txt", variables);    	
+    }
 
     /**
      * Decodes an encoded polyline string and converts it into a list of TimePoint objects.

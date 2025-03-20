@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import eu.fbk.dslab.playandgo.test.PlayAndGoEngine;
+import eu.fbk.dslab.playandgo.test.hereapi.domain.HereAPIResponse;
 
 
 @Component
@@ -58,6 +59,15 @@ public class HereAPITestManager {
     //Main Function Download Track
     public String downloadTrack(String mean, String date, String origin, String destination, boolean multimodal, boolean invalidTrack) throws Exception {
         return hereAPITemplateManager.getApiData(mean, date, origin, destination, multimodal, invalidTrack);
+    }
+    
+    public void sendBulk(String mean, String date, String origin, String destination, boolean multimodal, int iterations) throws Exception {
+    	HereAPIResponse apiRowData = hereAPITemplateManager.getApiRowData(mean, date, origin, destination);
+    	for (int i = 0; i < iterations; i++) {
+    		String track = hereAPITemplateManager.createJson(apiRowData, mean, date, multimodal);
+    		playAndGoEngine.sendTrack(track);
+    		Thread.sleep(1000);
+		}
     }
 
     //Assign Survey
